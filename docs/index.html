@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CUE SDK Overview and Reference</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+    <section id="cue-sdk-overview-and-reference">
+        <h1>CUE SDK Overview and Reference</h1>
+        <p><strong>Protocol version 11</strong></p>
+        <aside id="table-of-contents" class="topic contents">
+            <h1>Table of Contents</h1>
+            <ul>
+                <li><a href="#overview">Overview</a>
+                    <ul>
+                        <li><a href="#cue-sdk-functional-features">CUE SDK functional features:</a></li>
+                        <li><a href="#other-sdk-features">Other SDK features:</a></li>
+                        <li><a href="#sdk-package">SDK Package</a></li>
+                        <li><a href="#requirements">Requirements</a></li>
+                        <li><a href="#supported-devices">Supported devices</a></li>
+                    </ul>
+                </li>
+                <li><a href="#multiple-clients-using-the-sdk-at-the-same-time">Multiple clients using the SDK at the same time</a></li>
+                <li><a href="#other-considerations">Other considerations</a>
+                    <ul>
+                        <li><a href="#single-color-devices">Single-color devices</a></li>
+                        <li><a href="#on-off-leds">On/off leds</a></li>
+                        <li><a href="#leds-that-are-not-controlled-by-sdk">LEDs that are not controlled by SDK</a></li>
+                        <li><a href="#memory-management">Memory management</a></li>
+                        <li><a href="#win-l">Win+L</a></li>
+                    </ul>
+                </li>
+                <li><a href="#reference">Reference</a>
+                    <ul>
+                        <li><a href="#corsairsetledscolors">CorsairSetLedsColors</a></li>
+                        <li><a href="#corsairsetledscolorsbufferbydeviceindex">CorsairSetLedsColorsBufferByDeviceIndex</a></li>
+                        <li><a href="#corsairsetledscolorsflushbuffer">CorsairSetLedsColorsFlushBuffer</a></li>
+                        <li><a href="#corsairsetledscolorsflushbufferasync">CorsairSetLedsColorsFlushBufferAsync</a></li>
+                        <li><a href="#corsairsetledscolorsasync">CorsairSetLedsColorsAsync</a></li>
+                        <li><a href="#corsairgetledscolors">CorsairGetLedsColors</a></li>
+                        <li><a href="#corsairgetledscolorsbydeviceindex">CorsairGetLedsColorsByDeviceIndex</a></li>
+                        <li><a href="#corsairgetboolpropertyvalue">CorsairGetBoolPropertyValue</a></li>
+                        <li><a href="#corsairgetint32propertyvalue">CorsairGetInt32PropertyValue</a></li>
+                        <li><a href="#corsairsetlayerpriority">CorsairSetLayerPriority</a></li>
+                        <li><a href="#corsairsubscribeforevents">CorsairSubscribeForEvents</a></li>
+                        <li><a href="#corsairunsubscribefromevents">CorsairUnsubscribeFromEvents</a></li>
+                        <li><a href="#corsairgetdevicecount">CorsairGetDeviceCount</a></li>
+                        <li><a href="#corsairgetdeviceinfo">CorsairGetDeviceInfo</a></li>
+                        <li><a href="#corsairdeviceid">CorsairDeviceId</a></li>
+                        <li><a href="#corsairgetledpositions">CorsairGetLedPositions</a></li>
+                        <li><a href="#corsairgetledpositionsbydeviceindex">CorsairGetLedPositionsByDeviceIndex</a></li>
+                        <li><a href="#corsairgetledidforkeyname">CorsairGetLedIdForKeyName</a></li>
+                        <li><a href="#corsairrequestcontrol">CorsairRequestControl</a></li>
+                        <li><a href="#corsairreleasecontrol">CorsairReleaseControl</a></li>
+                        <li><a href="#corsairperformprotocolhandshake">CorsairPerformProtocolHandshake</a></li>
+                        <li><a href="#corsairregisterkeypresscallback">CorsairRegisterKeypressCallback</a></li>
+                        <li><a href="#corsairledid">CorsairLedId</a></li>
+                        <li><a href="#corsairkeyid">CorsairKeyId</a></li>
+                        <li><a href="#corsairgetlasterror">CorsairGetLastError</a></li>
+                        <li><a href="#corsaireventid">CorsairEventId</a></li>
+                        <li><a href="#corsairdevicetype">CorsairDeviceType</a></li>
+                        <li><a href="#corsairphysicallayout">CorsairPhysicalLayout</a></li>
+                        <li><a href="#corsairlogicallayout">CorsairLogicalLayout</a></li>
+                        <li><a href="#corsairdevicecaps">CorsairDeviceCaps</a></li>
+                        <li><a href="#corsairdevicepropertytype">CorsairDevicePropertyType</a></li>
+                        <li><a href="#corsairdevicepropertyid">CorsairDevicePropertyId</a></li>
+                        <li><a href="#corsairaccessmode">CorsairAccessMode</a></li>
+                        <li><a href="#corsairerror">CorsairError</a></li>
+                        <li><a href="#corsairledcolor">CorsairLedColor</a></li>
+                        <li><a href="#corsairchanneldevicetype">CorsairChannelDeviceType</a></li>
+                        <li><a href="#corsairdeviceinfo">CorsairDeviceInfo</a></li>
+                        <li><a href="#corsairchannelsinfo">CorsairChannelsInfo</a></li>
+                        <li><a href="#corsairchannelinfo">CorsairChannelInfo</a></li>
+                        <li><a href="#corsairchanneldeviceinfo">CorsairChannelDeviceInfo</a></li>
+                        <li><a href="#corsairledpositions">CorsairLedPositions</a></li>
+                        <li><a href="#corsairledposition">CorsairLedPosition</a></li>
+                        <li><a href="#corsairevent">CorsairEvent</a></li>
+                        <li><a href="#corsairdeviceconnectionstatuschangedevent">CorsairDeviceConnectionStatusChangedEvent</a></li>
+                        <li><a href="#corsairkeyevent">CorsairKeyEvent</a></li>
+                        <li><a href="#corsairprotocoldetails">CorsairProtocolDetails</a></li>
+                    </ul>
+                </li>
+                <li><a href="#device-coordinates">Device coordinates</a></li>
+                <li><a href="#examples-of-how-to-use-sdk">Examples of how to use SDK</a></li>
+                <li><a href="#end-user-license-agreement">End User License Agreement</a></li>
+            </ul>
+        </aside>
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>The Corsair Utility Engine (CUE) SDK gives ability for third-party applications to control lightings on Corsair RGB devices. CUE SDK interacts with hardware through CUE so it should be running in order for SDK to work properly.</p>
+            <p>SDK features are supported in CUE version 1.10 or higher.</p>
+            <p>To use this SDK you should have basic knowledge in C and library linking.</p>
+            <section id="cue-sdk-functional-features">
+                <h3>CUE SDK functional features:</h3>
+                <ul>
+                    <li>SDK provides ability to specify/query RGB color for every LED on keyboard, mouse, mouse mat, headset, headset stand, Commander PRO, Lighting Node PRO, memory module and cooler (ie. control lighting by key id)</li>
+                    <li>SDK provides information about connected hardware: models, physical and logical layouts.</li>
+                    <li>SDK provides information about HW geometry so that clients can show visual effects that depend on geometry like wave or ripple (ie. control lighting by key position).</li>
+                    <li>SDK provides helper functions to convert alphanumeric key names (like 'A', 'Q', 'Z') into identifiers for "tutorial" kind of clients that want to highlight exact keys taking into account logical layout (ie. control lighting by key name).</li>
+                    <li>SDK provides <strong>exclusive</strong> and <strong>shared</strong> access to SDK clients.</li>
+                    <li>SDK provides layers for shared clients so they can ensure that colors set by them are shown on top of CUE colors if this is needed</li>
+                    <li>SDK provides information about G keys pressed on the keyboard or M keys pressed on the mouse</li>
+                    <li>User can forbid third-party applications to control lighting in CUE settings.</li>
+                </ul>
+            </section>
+            <section id="other-sdk-features">
+                <h3>Other SDK features:</h3>
+                <ul>
+                    <li>CUE works properly with multiple clients. SDK library itself is thread safe so that clients are able to use it from multiple threads within the same process.</li>
+                    <li>SDK is fail-safe. If CUE is not present, shuts down by the user or crashes this does not cause a client crashing or hanging.</li>
+                    <li>SDK handles handshake during client initialization to agree on protocol version that CUE implements, so that CUE can decide if it supports client protocol version and client can decide which of API functions it can call.</li>
+                </ul>
+            </section>
+            <section id="sdk-package">
+                <h3>SDK Package</h3>
+                <p>The following folders are included:</p>
+                <ul>
+                    <li><strong>include</strong> contains C/C++ header files with function prototypes and enum declarations;</li>
+                    <li><strong>redist</strong> contains both 32 and 64 bit .dll files;</li>
+                    <li><strong>lib</strong> contains companion .lib files to access exported functions (32 and 64 bit);</li>
+                    <li><strong>examples</strong> contains sample project that shows how to use SDK;</li>
+                    <li><strong>doc</strong> contains SDK documentation (this document).</li>
+                </ul>
+            </section>
+            <section id="requirements">
+                <h3>Requirements</h3>
+                <p>This SDK can be used on the same platforms that CUE does:</p>
+                <ul>
+                    <li><strong>Windows 7</strong> (32-bit and 64-bit);</li>
+                    <li><strong>Windows 8</strong> (32-bit and 64-bit);</li>
+                    <li><strong>Windows 10</strong> (32-bit and 64-bit).</li>
+                </ul>
+            </section>
+            <section id="supported-devices">
+                <h3>Supported devices</h3>
+                <ul>
+                    <li>Keyboards:
+                        <ul>
+                            <li>CGK65 RGB</li>
+                            <li>K65 LUX RGB</li>
+                            <li>K65 RGB RAPIDFIRE</li>
+                            <li>K70 RGB</li>
+                            <li>K70 LUX</li>
+                            <li>K70 RAPIDFIRE</li>
+                            <li>K70 LUX RGB</li>
+                            <li>K70 RGB RAPIDFIRE</li>
+                            <li>K95 RGB</li>
+                            <li>STRAFE</li>
+                            <li>STRAFE RGB</li>
+                            <li>K63</li>
+                            <li>K68</li>
+                            <li>K95 RGB PLATINUM</li>
+                        </ul>
+                    </li>
+                    <li>Mice:
+                        <ul>
+                            <li>M65 RGB</li>
+                            <li>M65 PRO RGB</li>
+                            <li>SABRE</li>
+                            <li>SABRE RGB</li>
+                            <li>SABRE RGB Optical</li>
+                            <li>SABRE RGB Laser</li>
+                            <li>Scimitar</li>
+                            <li>GLAIVE RGB</li>
+                            <li>Scimitar PRO RGB</li>
+                            <li>KATAR</li>
+                        </ul>
+                    </li>
+                    <li>Mouse Mat:
+                        <ul>
+                            <li>MM800 RGB</li>
+                        </ul>
+                    </li>
+                    <li>Headsets:
+                        <ul>
+                            <li>VOID USB</li>
+                            <li>VOID WIRELESS</li>
+                            <li>VOID PRO USB</li>
+                            <li>VOID PRO WIRELESS</li>
+                        </ul>
+                    </li>
+                    <li>Headset Stand:
+                        <ul>
+                            <li>ST100 RGB</li>
+                        </ul>
+                    </li>
+                    <li>LED Controllers:
+                        <ul>
+                            <li>Lighting Node PRO</li>
+                            <li>Commander PRO</li>
+                        </ul>
+                    </li>
+                    <li>Memory module:
+                        <ul>
+                            <li>Vengeance RGB PRO</li>
+                            <li>DOMINATOR PLATINUM RGB</li>
+                        </ul>
+                    </li>
+                    <li>Coolers:
+                        <ul>
+                            <li>H100i PRO</li>
+                            <li>H115i PRO</li>
+                            <li>H150i PRO</li>
+                            <li>H100i Platinum</li>
+                            <li>H115i Platinum</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </section>
+        <section id="multiple-clients-using-the-sdk-at-the-same-time">
+            <h2>Multiple clients using the SDK at the same time</h2>
+            <p>SDK provides <strong>exclusive</strong> and <strong>shared</strong> access to SDK clients.</p>
+            <ul>
+                <li><strong>Exclusive</strong> access - lighting controlled only by client and not by CUE or other SDK clients. There can be only one <strong>exclusive</strong> client at a time. If there is already an active <strong>exclusive</strong> client A and a new client B requests <strong>exclusive</strong> access to the lighting then client B becomes <strong>exclusive</strong> client and client A loses exclusive control (i.e. "last win" strategy).</li>
+                <li><strong>Shared</strong> access - multiple clients may control lighting at the same time, optionally choosing theirs layer priority from interval [0..255]. There can be unlimited number of <strong>shared</strong> clients working simultaneously. If some client requests <strong>exclusive</strong> access then all other <strong>shared</strong> clients will not be able to override colors that were set by <strong>exclusive</strong> client. When <strong>exclusive</strong> client disconnects all <strong>shared</strong> clients can override colors again.</li>
+                <li>CUE itself acts like a shared client with layer priority 127, so if there is a client taking over exclusive control then CUE will not try to override colors.</li>
+            </ul>
+            <p>The default access mode is <strong>shared</strong>.</p>
+        </section>
+        <section id="other-considerations">
+            <h2>Other considerations</h2>
+            <section id="single-color-devices">
+                <h3>Single-color devices</h3>
+                <p>If a connected device only has LEDs of one color instead of all three (RGB) then when RGB color is set to such leds SDK chooses maximum of three (RGB) values and uses it as brightness for LED.</p>
+            </section>
+            <section id="on-off-leds">
+                <h3>On/off leds</h3>
+                <p>If a connected device has some LEDs that support only on/off control then if supplied brightness value is &gt;= 128 such LED will be switched on, otherwise it will be switched off.</p>
+            </section>
+            <section id="leds-that-are-not-controlled-by-sdk">
+                <h3>LEDs that are not controlled by SDK</h3>
+                <p>Side LEDs on Corsair STRAFE keyboards can not be controlled by SDK. These LEDs remain controlled by CUE regardless of connected SDK clients.</p>
+            </section>
+            <section id="memory-management">
+                <h3>Memory management</h3>
+                <p>SDK is responsible for freeing memory that was allocated by its functions. The memory is freed when SDK library is unloaded.</p>
+            </section>
+            <section id="win-l">
+                <h3>Win+L</h3>
+                <p>CUE should preserve communication channels with SDK clients when user locks screen, so when user session is restored and set of connected devices is unchanged the client can continue using SDK as if session was never locked.</p>
+                <p>For all G/M keys which are in a pressed state at the time user locks screen CUE should notify client application that these keys have been released.</p>
+            </section>
+        </section>
+        <section id="reference">
+            <h2>Reference</h2>
+            <section id="corsairsetledscolors">
+                <h3>CorsairSetLedsColors</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLedsColors</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">CorsairLedColor</span><span class="o">*</span> <span class="n">ledsColors</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> set specified leds to some colors. The color is retained until changed by successive calls. This function does not take logical layout into account. This function executes synchronously, if you are concerned about delays consider using <cite>CorsairSetLedsColorsAsync</cite></p>
+                <aside class="note">It is not recommended to use this function with DIY-devices, coolers and memory modules (leds: CLD_C1_1, ..., CLD_C1_150, CLD_C2_1, ..., CLD_C2_150, CLD_C3_1, ..., CLD_C3_150, CLLC_C1_1, ..., CLLC_C1_150 and CLDRAM_1, ..., CLDRAM_12). Consider using <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> and <cite>CorsairSetLedsColorsFlushBuffer</cite> functions instead.</aside>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>int size</cite> - number of leds in <cite>ledsColors</cite> array;</li>
+                    <li><cite>CorsairLedColor* ledsColors</cite> - array containing colors for each LED.</li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while it's disconnected) then function completes successfully and returns true.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ServerNotFound</cite>, <cite>CE_NoControl</cite>, <cite>CE_ProtocolHandshakeMissing</cite></li>
+                    <li><cite>CE_InvalidArguments</cite> - if some of r, g, b values are beyond [0..255] interval or array contains duplicates of some led ids.</li>
+                </ul>
+            </section>
+            <section id="corsairsetledscolorsbufferbydeviceindex">
+                <h3>CorsairSetLedsColorsBufferByDeviceIndex</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLedsColorsBufferByDeviceIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">deviceIndex</span><span class="p">,</span>
+<span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">CorsairLedColor</span><span class="o">*</span> <span class="n">ledsColors</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> set specified LEDs to some colors. This function set LEDs colors in the buffer which is written to the devices via <cite>CorsairSetLedsColorsFlushBuffer</cite> or <cite>CorsairSetLedsColorsFlushBufferAsync</cite>. Typical usecase is next: <cite>CorsairSetLedsColorsFlushBuffer</cite> or <cite>CorsairSetLedsColorsFlushBufferAsync</cite> is called to write LEDs colors to the device and follows after one or more calls of <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> to set the LEDs buffer. This function does not take logical layout into account.</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>int deviceIndex</cite> - zero-based index of device. Should be strictly less than value returned by CorsairGetDeviceCount()</li>
+                    <li><cite>int size</cite> - number of leds in ledsColors array</li>
+                    <li><cite>CorsairLedColor* ledsColors</cite> - array containing colors for each LED.</li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while it's disconnected) then functions completes successfully and returns true.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CorsairErrorServerNotFound</cite>, <cite>CorsairErrorProtocolHandshakeMissing</cite></li>
+                    <li><cite>CorsairErrorInvalidArguments</cite> - if some of r, g, b values are beyond [0..255] interval or array contains duplicates of some led ids.</li>
+                </ul>
+            </section>
+            <section id="corsairsetledscolorsflushbuffer">
+                <h3>CorsairSetLedsColorsFlushBuffer</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLedsColorsFlushBuffer</span><span class="p">();</span></pre>
+                <p><strong>Description:</strong> writes to the devices LEDs colors buffer which is previously filled by the <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> function. This function executes synchronously, if you are concerned about delays consider using <cite>CorsairSetLedsColorsFlushBufferAsync</cite></p>
+                <p><strong>Input arguments:</strong> no.</p>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId in the LEDs colors buffer present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while itâ€™s disconnected) then functions completes successfully and returns true.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CorsairErrorServerNotFound</cite>, <cite>CorsairErrorNoControl</cite>, <cite>CorsairErrorProtocolHandshakeMissing</cite></li>
+                </ul>
+            </section>
+            <section id="corsairsetledscolorsflushbufferasync">
+                <h3>CorsairSetLedsColorsFlushBufferAsync</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLedsColorsFlushBufferAsync</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">callback</span><span class="p">)</span>
+<span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">result</span><span class="p">,</span> <span class="n">CorsairError</span> <span class="n">error</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> same as <cite>CorsairSetLedsColorsFlushBuffer</cite> but returns control to the caller immediately.</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>void (*callback)(void *context, bool result, CorsairError error)</cite> - callback that is called by SDK when colors are set. Can be <cite>NULL</cite> if client is not interested in result;
+                        <ul>
+                            <li><cite>context</cite> contains value that was supplied by user in <cite>CorsairSetLedsColorsFlushBufferAsync</cite> call;</li>
+                            <li><cite>result</cite> is true if call was successful, otherwise false;</li>
+                            <li><cite>error</cite> contains error code if call was not successful (<cite>result==false</cite>) <strong>Possible errors:</strong> <cite>CorsairErrorServerNotFound</cite>, <cite>CorsairErrorNoControl</cite></li>
+                        </ul>
+                    </li>
+                    <li><cite>void *context</cite> - arbitrary context that will be returned in callback call. Can be <cite>NULL</cite></li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId in the LEDs colors buffer present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while itâ€™s disconnected) then functions completes successfully and returns true.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CorsairErrorProtocolHandshakeMissing</cite></li>
+                </ul>
+            </section>
+            <section id="corsairsetledscolorsasync">
+                <h3>CorsairSetLedsColorsAsync</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLedsColorsAsync</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">CorsairLedColor</span><span class="o">*</span>
+<span class="n">ledsColors</span><span class="p">,</span> <span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">CallbackType</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="kt">bool</span><span class="p">,</span> <span class="n">CorsairError</span><span class="p">),</span>
+<span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> same as <cite>CorsairSetLedsColors</cite> but returns control to the caller immediately.</p>
+                <aside class="note">It is not recommended to use this function with DIY-devices, coolers and memory modules (leds: CLD_C1_1, ..., CLD_C1_150, CLD_C2_1, ..., CLD_C2_150, CLD_C3_1, ..., CLD_C3_150, CLLC_C1_1, ..., CLLC_C1_150 and CLDRAM_1, ..., CLDRAM_12). Consider using <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> and <cite>CorsairSetLedsColorsFlushBuffer</cite> functions instead.</aside>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>int size</cite> - number of leds in <cite>ledsColors</cite> array;</li>
+                    <li><cite>CorsairLedColor* ledsColors</cite> - array containing colors for each LED;</li>
+                    <li><cite>void (*CallbackType)(void* context, bool result, CorsairError error)</cite> - callback that is called by SDK when colors are set. Can be <cite>NULL</cite> if client is not interested in result:
+                        <ul>
+                            <li><cite>context</cite> contains value that was supplied by user in <cite>CorsairSetLedsColorsAsync</cite> call;</li>
+                            <li><cite>result</cite> is true if call was successful, otherwise false;</li>
+                            <li><cite>error</cite> contains error code if call was not successful (<cite>result==false</cite>); <strong>Possible errors:</strong> <cite>CE_ServerNotFound</cite>, <cite>CE_NoControl</cite></li>
+                        </ul>
+                    </li>
+                    <li><cite>void* context</cite> - arbitrary context that will be returned in callback call. Can be <cite>NULL</cite>.</li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ProtocolHandshakeMissing</cite></li>
+                    <li><cite>CE_InvalidArguments</cite> - if some of r, g, b values are beyond [0..255] interval or array contains duplicates of some led ids.</li>
+                </ul>
+            </section>
+            <section id="corsairgetledscolors">
+                <h3>CorsairGetLedsColors</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairGetLedsColors</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">CorsairLedColor</span><span class="o">*</span> <span class="n">ledsColors</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> get current color for the list of requested LEDs. The color should represent the actual state of the hardware LED, which could be a combination of SDK and/or CUE input. This function works only for keyboard, mouse, mousemat, headset and headset stand devices.</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>int size</cite> - number of leds in <cite>ledsColors</cite> array;</li>
+                    <li><cite>CorsairLedColor* ledsColors</cite> - array containing colors for each LED. Caller should only fill ledId field, and then SDK will fill R, G and B values on return;</li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while itâ€™s disconnected) then functions completes successfully and returns true.</p>
+                <p>Also ledsColors array will contain R, G and B values of colors on return.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CorsairErrorServerNotFound</cite>, <cite>CorsairErrorProtocolHandshakeMissing</cite></li>
+                    <li><cite>CorsairErrorInvalidArguments</cite> - if array contains duplicates of some led ids.</li>
+                </ul>
+            </section>
+            <section id="corsairgetledscolorsbydeviceindex">
+                <h3>CorsairGetLedsColorsByDeviceIndex</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairGetLedsColorsByDeviceIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">deviceIndex</span><span class="p">,</span>
+<span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">CorsairLedColor</span><span class="o">*</span> <span class="n">ledsColors</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> get current color for the list of requested LEDs. The color should represent the actual state of the hardware LED, which could be a combination of SDK and/or CUE input. This function works for keyboard, mouse, mousemat, headset, headset stand, DIY-devices, memory module and cooler.</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>int deviceIndex</cite> - zero-based index of device. Should be strictly less than value returned by <cite>CorsairGetDeviceCount()</cite></li>
+                    <li><cite>int size</cite> - number of LEDs in <cite>ledsColors</cite> array;</li>
+                    <li><cite>CorsairLedColor* ledsColors</cite> - array containing colors for each LED. Caller should only fill ledId field, and then SDK will fill R, G and B values on return.</li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while itâ€™s disconnected) then functions completes successfully and returns true. Also ledsColors array will contain R, G and B values of colors on return.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ServerNotFound</cite>, <cite>CE_ProtocolHandshakeMissing</cite></li>
+                    <li><cite>CE_InvalidArguments</cite> - if array contains duplicates of some LED ids.</li>
+                </ul>
+            </section>
+            <section id="corsairgetboolpropertyvalue">
+                <h3>CorsairGetBoolPropertyValue</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairGetBoolPropertyValue</span><span class="p">(</span><span class="kt">int</span> <span class="n">deviceIndex</span><span class="p">,</span>
+<span class="n">CorsairDevicePropertyId</span> <span class="n">propertyId</span><span class="p">,</span> <span class="kt">bool</span><span class="o">*</span> <span class="n">propertyValue</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> reads boolean property value for device at provided index.</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>int deviceIndex</cite> - zero-based index of device. Should be strictly less than value returned by <cite>CorsairGetDeviceCount()</cite></li>
+                    <li><cite>CorsairDevicePropertyId propertyId</cite> - id of property to read from device;</li>
+                    <li><cite>bool* propertyValue</cite> - pointer to memory where to store boolean property value read from device.</li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ServerNotFound</cite>, <cite>CE_ProtocolHandshakeMissing</cite></li>
+                    <li><cite>CE_IncompatibleProtocol</cite> - if the function was called for SDK that implements protocol version 5 or earlier;</li>
+                    <li><cite>CE_InvalidArguments</cite> - if deviceIndex is invalid, type of property (specified by <cite>propertyId</cite>) is not boolean, device does not support <cite>CDC_PropertyLookup`capability or `propertyId</cite> is not supported by device.</li>
+                </ul>
+            </section>
+            <section id="corsairgetint32propertyvalue">
+                <h3>CorsairGetInt32PropertyValue</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairGetInt32PropertyValue</span><span class="p">(</span><span class="kt">int</span> <span class="n">deviceIndex</span><span class="p">,</span>
+<span class="n">CorsairDevicePropertyId</span> <span class="n">propertyId</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">propertyValue</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> reads integer property value for device at provided index.</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>int deviceIndex</cite> - zero-based index of device. Should be strictly less than value returned by <cite>CorsairGetDeviceCount()</cite></li>
+                    <li><cite>CorsairDevicePropertyId propertyId</cite> - id of property to read from device;</li>
+                    <li><cite>int* propertyValue</cite> - pointer to memory where to store integer property value read from device.</li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ServerNotFound</cite>, <cite>CE_ProtocolHandshakeMissing</cite></li>
+                    <li><cite>CE_IncompatibleProtocol</cite> - if the function was called for SDK that implements protocol version 5 or earlier;</li>
+                    <li><cite>CE_InvalidArguments</cite> - if deviceIndex is invalid, type of property (specified by <cite>propertyId</cite>) is not integer, device does not support <cite>CDC_PropertyLookup</cite> capability or <cite>propertyId</cite> is not supported by device.</li>
+                </ul>
+            </section>
+            <section id="corsairsetlayerpriority">
+                <h3>CorsairSetLayerPriority</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLayerPriority</span><span class="p">(</span><span class="kt">int</span> <span class="n">priority</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> set layer priority for this shared client. By default CUE has priority of 127 and all shared clients have priority of 128 if they donâ€™t call this function. Layers with higher priority value are shown on top of layers with lower priority.</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>int priority</cite> - priority of a layer [0..255];</li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If this function is called in exclusive mode then it will return true.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CorsairErrorServerNotFound</cite>, <cite>CorsairErrorProtocolHandshakeMissing</cite></li>
+                    <li><cite>CorsairErrorInvalidArguments</cite> - if priority value is beyond [0..255] interval.</li>
+                </ul>
+            </section>
+            <section id="corsairsubscribeforevents">
+                <h3>CorsairSubscribeForEvents</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSubscribeForEvents</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">CorsairEventHandler</span><span class="p">)</span>
+<span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">,</span> <span class="k">const</span> <span class="n">CorsairEvent</span> <span class="o">*</span><span class="n">event</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> registers a callback that will be called by SDK when some event happened. If client is already subscribed but calls this function again SDK should use only last callback registered for sending notifications.</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>void(*CorsairEventHandler)(void *context, const CorsairEvent *event)</cite> - callback that is called by SDK when key is pressed or released
+                        <ul>
+                            <li><cite>context</cite> contains value that was supplied by user in <cite>CorsairSubscribeForEvents</cite> call;</li>
+                            <li><cite>CorsairEvent *event</cite> - information about event, user can distinguish between events by reading <cite>event-&gt;id</cite> field;</li>
+                        </ul>
+                    </li>
+                    <li><cite>void* context</cite> - arbitrary context that will be returned in callback call. Can be <cite>NULL</cite></li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ServerNotFound</cite>, <cite>CE_ProtocolHandshakeMissing</cite></li>
+                    <li><cite>CE_InvalidArguments</cite> - if callback is <cite>NULL</cite></li>
+                </ul>
+            </section>
+            <section id="corsairunsubscribefromevents">
+                <h3>CorsairUnsubscribeFromEvents</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairUnsubscribeFromEvents</span><span class="p">();</span></pre>
+                <p><strong>Description:</strong> unregisters callback previously registered by <cite>CorsairSubscribeForEvents</cite> call.</p>
+                <p><strong>Input arguments:</strong> no.</p>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ServerNotFound</cite>, <cite>CE_ProtocolHandshakeMissing</cite></li>
+                </ul>
+            </section>
+            <section id="corsairgetdevicecount">
+                <h3>CorsairGetDeviceCount</h3>
+                <pre data-language="c"><span class="kt">int</span> <span class="nf">CorsairGetDeviceCount</span><span class="p">();</span></pre>
+                <p><strong>Description:</strong> returns number of connected Corsair devices. For keyboards, mice, mousemats, headsets and headset stands not more than one device of each type is included in return value in case if there are multiple devices of same type connected to the system. For DIY-devices and coolers actual number of connected devices is included in return value. For memory modules actual number of connected modules is included in return value, modules are enumerated with respect to their logical position (counting from left to right, from top to bottom).</p>
+                <p>Use <cite>CorsairGetDeviceInfo()</cite> to get information about a certain device.</p>
+                <p><strong>Input arguments:</strong> no.</p>
+                <p><strong>Returns:</strong> integer value. -1 in case of error.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ServerNotFound</cite>, <cite>CE_ProtocolHandshakeMissing</cite></li>
+                </ul>
+            </section>
+            <section id="corsairgetdeviceinfo">
+                <h3>CorsairGetDeviceInfo</h3>
+                <pre data-language="c"><span class="n">CorsairDeviceInfo</span> <span class="o">*</span><span class="nf">CorsairGetDeviceInfo</span><span class="p">(</span><span class="kt">int</span> <span class="n">deviceIndex</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> returns information about a device based on provided index.</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>int deviceIndex</cite> - zero-based index of device. Should be strictly less than a value returned by <cite>CorsairGetDeviceInfo()</cite></li>
+                </ul>
+                <p><strong>Returns:</strong> pointer to <cite>CorsairDeviceInfo</cite> structure that contains information about device or <cite>NULL</cite> pointer if error has occurred.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ServerNotFound</cite>, <cite>CE_ProtocolHandshakeMissing</cite></li>
+                    <li><cite>CE_InvalidArguments</cite> - if <cite>deviceIndex</cite> is invalid.</li>
+                </ul>
+            </section>
+            <section id="corsairdeviceid">
+                <h3>CorsairDeviceId</h3>
+                <pre data-language="c"><span class="k">typedef</span> <span class="kt">char</span> <span class="n">CorsairDeviceId</span><span class="p">[</span><span class="n">CORSAIR_DEVICE_ID_MAX</span><span class="p">]</span></pre>
+                <p><strong>Description:</strong> defines a character array of length <cite>CORSAIR_DEVICE_ID_MAX</cite> (<cite>== 128</cite>) to store device identifier string.</p>
+            </section>
+            <section id="corsairgetledpositions">
+                <h3>CorsairGetLedPositions</h3>
+                <pre data-language="c"><span class="n">CorsairLedPositions</span> <span class="o">*</span><span class="nf">CorsairGetLedPositions</span><span class="p">();</span></pre>
+                <p><strong>Description:</strong> provides list of keyboard LEDs with their physical positions. Coordinates grids for different device models can be found in Device coordinates.</p>
+                <p><strong>Input arguments:</strong> no.</p>
+                <p><strong>Returns:</strong> returns pointer to <cite>CorsairLedPositions</cite> struct or <cite>NULL</cite> if error has occurred.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ServerNotFound</cite>, <cite>CE_ProtocolHandshakeMissing</cite></li>
+                </ul>
+            </section>
+            <section id="corsairgetledpositionsbydeviceindex">
+                <h3>CorsairGetLedPositionsByDeviceIndex</h3>
+                <pre data-language="c"><span class="n">CorsairLedPositions</span> <span class="o">*</span><span class="nf">CorsairGetLedPositionsByDeviceIndex</span><span class="p">(</span>
+<span class="kt">int</span> <span class="n">deviceIndex</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> provides list of keyboard, mouse, headset, mousemat, headset stand, DIY-devices, memory module and cooler LEDs by its index with their positions. Position could be either physical (only device-dependent) or logical (depend on device as well as CUE settings).</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>int deviceIndex</cite> - zero-based index of device. Should be strictly less than a value returned by <cite>CorsairGetDeviceCount()</cite></li>
+                </ul>
+                <p><strong>Returns:</strong> returns pointer to CorsairLedPositions struct or <cite>NULL</cite> if error has occurred.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ServerNotFound</cite></li>
+                    <li><cite>CE_ProtocolHandshakeMissing</cite></li>
+                    <li><cite>CE_InvalidArguments</cite> if <cite>deviceIndex</cite> is out of bounds or corresponds to neither keyboard, mouse, headset, mousemat, headset stand, DIY device, memory module nor cooler;</li>
+                    <li><cite>CE_IncompatibleProtocol</cite> if the function was called for CUE that implements protocol version 2 or earlier.</li>
+                </ul>
+            </section>
+            <section id="corsairgetledidforkeyname">
+                <h3>CorsairGetLedIdForKeyName</h3>
+                <pre data-language="c"><span class="n">CorsairLedId</span> <span class="nf">CorsairGetLedIdForKeyName</span><span class="p">(</span><span class="kt">char</span> <span class="n">keyName</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> retrieves led id for key name taking logical layout into account. So on AZERTY keyboards if user calls <cite>CorsairGetLedIdForKeyName('A')</cite> he gets <cite>CLK_Q</cite>. This id can be used in CorsairSetLedsColors function.</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>char keyName</cite> - key name. [â€˜Aâ€™..â€™Zâ€™] (26 values) are valid values.</li>
+                </ul>
+                <p><strong>Returns:</strong> proper <cite>CorsairLedId</cite> or <cite>CLI_Invalid</cite> if error occurred.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ServerNotFound</cite>, <cite>CE_ProtocolHandshakeMissing</cite></li>
+                    <li><cite>CE_InvalidArguments</cite> - if <cite>keyName</cite> is invalid.</li>
+                </ul>
+            </section>
+            <section id="corsairrequestcontrol">
+                <h3>CorsairRequestControl</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairRequestControl</span><span class="p">(</span><span class="n">CorsairAccessMode</span> <span class="n">accessMode</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> requests control using specified access mode. By default client has shared control over lighting so there is no need to call CorsairRequestControl() unless a client requires exclusive control.</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>CorsairAccessMode accessMode</cite> - requested access mode</li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. Returns true if SDK received requested control or false otherwise.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ProtocolHandshakeMissing</cite>, <cite>CE_ServerNotFound</cite></li>
+                    <li><cite>CE_InvalidArguments</cite> - if provided <cite>accessMode</cite> is not supported by this version of SDK.</li>
+                </ul>
+            </section>
+            <section id="corsairreleasecontrol">
+                <h3>CorsairReleaseControl</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairReleaseControl</span><span class="p">(</span><span class="n">CorsairAccessMode</span> <span class="n">accessMode</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> releases previously requested control for specified access mode.</p>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>CorsairAccessMode accessMode</cite> - access mode that is requested to be released.</li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. Returns true if SDK released control or false otherwise.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ProtocolHandshakeMissing</cite>, CE_ServerNotFound</li>
+                    <li><cite>CE_InvalidArguments</cite> - if provided <cite>accessMode</cite> is not supported by this version of SDK.</li>
+                    <li><cite>CE_IncompatibleProtocol</cite> - if the function was called for SDK that implements protocol version 1 or earlier.</li>
+                </ul>
+            </section>
+            <section id="corsairperformprotocolhandshake">
+                <h3>CorsairPerformProtocolHandshake</h3>
+                <pre data-language="c"><span class="n">CorsairProtocolDetails</span> <span class="nf">CorsairPerformProtocolHandshake</span><span class="p">();</span></pre>
+                <p><strong>Description:</strong> checks file and protocol version of CUE to understand which of SDK functions can be used with this version of CUE.</p>
+                <p><strong>Input arguments:</strong> no.</p>
+                <p><strong>Returns:</strong> <cite>CorsairProtocolDetails</cite> struct.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CE_ServerNotFound</cite></li>
+                </ul>
+            </section>
+            <section id="corsairregisterkeypresscallback">
+                <h3>CorsairRegisterKeypressCallback</h3>
+                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairRegisterKeypressCallback</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">CallbackType</span><span class="p">)</span>
+<span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">,</span> <span class="n">CorsairKeyId</span> <span class="n">keyId</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">pressed</span><span class="p">),</span>
+<span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">);</span></pre>
+                <p><strong>Description:</strong> registers a callback that will be called by SDK when some of G or M keys are pressed or released.</p>
+                <aside class="note">It is not recommended to use this function. Consider using <cite>CorsairSubscribeForEvents</cite> and <cite>CorsairUnsubscribeFromEvents</cite> instead.</aside>
+                <p><strong>Input arguments:</strong></p>
+                <ul>
+                    <li><cite>void (*CallbackType)(void* context, CorsairKeyId keyId, bool pressed)</cite> - callback that is called by SDK when key is pressed or released;
+                        <ul>
+                            <li><cite>context</cite> contains value that was supplied by user in <cite>CorsairRegisterKeypressCallback</cite> call;</li>
+                            <li><cite>CorsairKeyId keyId</cite> - the id of the key that was pressed or released;</li>
+                            <li><cite>bool pressed</cite> - true if the key was pressed and false if it was released;</li>
+                        </ul>
+                    </li>
+                    <li><cite>void* context</cite> - arbitrary context that will be returned in callback call. Can be <cite>NULL</cite></li>
+                </ul>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure.</p>
+                <p><strong>Possible errors:</strong></p>
+                <ul>
+                    <li><cite>CorsairErrorServerNotFound</cite>, <cite>CorsairErrorProtocolHandshakeMissing</cite></li>
+                    <li><cite>CorsairErrorInvalidArguments</cite> - if callback is <cite>NULL</cite></li>
+                </ul>
+            </section>
+            <section id="corsairledid">
+                <h3>CorsairLedId</h3>
+                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairLedId</span></pre>
+                <p><strong>Description:</strong> contains shared list of all leds on all devices (keyboard, mouse, mouse mat, headset, headset stand, DIY, memory module, cooler) and all models/physical layouts.</p>
+                <p><strong>Item samples:</strong></p>
+                <ul>
+                    <li><cite>CLK_F1</cite>, <cite>CLK_Esc</cite>, <cite>CLK_Q</cite>, <cite>CLK_1</cite>, <cite>CLK_UpArrow</cite>, <cite>CLK_G1</cite>, ... - for keyboard leds;</li>
+                    <li><cite>CLKLP_Zone1</cite>, <cite>CLKLP_Zone2</cite>, ..., <cite>CLKLP_Zone19</cite> - for keyboard light pipe leds;</li>
+                    <li><cite>CLM_1</cite>, <cite>CLM_2</cite>, ..., <cite>CLM_4</cite> - for mouse leds;</li>
+                    <li><cite>CLH_LeftLogo</cite>, <cite>CLH_RightLogo</cite> - for headset leds;</li>
+                    <li><cite>CLMM_1</cite>, <cite>CLMM_2</cite>, ..., <cite>CLMM_15</cite> - for mousemat leds;</li>
+                    <li><cite>CLHSS_Zone1</cite>, <cite>CLHSS_Zone2</cite>, ..., <cite>CLHSS_Zone9</cite> - for headset stand leds;</li>
+                    <li><cite>CLD_C1_1</cite>, ..., <cite>CLD_C1_150</cite> - for first channel of the DIY-devices;</li>
+                    <li><cite>CLD_C2_1</cite>, ..., <cite>CLD_C2_150</cite> - for second channel of the DIY-devices;</li>
+                    <li><cite>CLI_Oem1</cite>, ..., <cite>CLI_Oem100</cite> - reserved range for custom leds;</li>
+                    <li><cite>CLDRAM_1</cite>, ..., <cite>CLDRAM_12</cite> - for memory module leds;</li>
+                    <li><cite>CLD_C3_1</cite>, ..., <cite>CLD_C3_150</cite> - for third channel of the DIY-devices;</li>
+                    <li><cite>CLLC_C1_1</cite>, ..., <cite>CLLC_C1_150</cite> - for first channel of the liquid coolers;</li>
+                    <li><cite>CLI_Invalid</cite> - dummy value.</li>
+                </ul>
+            </section>
+            <section id="corsairkeyid">
+                <h3>CorsairKeyId</h3>
+                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairKeyId</span></pre>
+                <p><strong>Description:</strong> contains shared list of G and M keys (not all available keys!).</p>
+                <p><strong>Items samples:</strong></p>
+                <ul>
+                    <li><cite>CorsairKeyKb_G1</cite>, ..., <cite>CorsairKeyKb_G18</cite> - for keyboard G keys;</li>
+                    <li><cite>CorsairKeyMouse_M1</cite>, ..., <cite>CorsairKeyMouse_M12</cite> - for mouse M keys;</li>
+                    <li><cite>CorsairKey_Invalid</cite> - dummy value.</li>
+                </ul>
+            </section>
+            <section id="corsairgetlasterror">
+                <h3>CorsairGetLastError</h3>
+                <pre data-language="c"><span class="n">CorsairError</span> <span class="nf">CorsairGetLastError</span><span class="p">();</span></pre>
+                <p><strong>Description:</strong> returns last error that occurred in this thread while using any of Corsair* functions.</p>
+                <p><strong>Input arguments:</strong> no.</p>
+                <p><strong>Returns:</strong> <cite>CorsairError</cite> value.</p>
+                <p><strong>Possible errors:</strong> no.</p>
+            </section>
+            <section id="corsaireventid">
+                <h3>CorsairEventId</h3>
+                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairEventId</span></pre>
+                <p><strong>Description:</strong> contains list of event identifiers.</p>
+                <p><strong>Items:</strong></p>
+                <ul>
+                    <li><cite>CEI_Invalid</cite> - dummy value;</li>
+                    <li><cite>CEI_DeviceConnectionStatusChangedEvent</cite>, <cite>CEI_KeyEvent</cite> - valid values.</li>
+                </ul>
+            </section>
+            <section id="corsairdevicetype">
+                <h3>CorsairDeviceType</h3>
+                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairDeviceType</span></pre>
+                <p><strong>Description:</strong> contains list of available device types.</p>
+                <p><strong>Items:</strong></p>
+                <ul>
+                    <li><cite>CDT_Keyboard</cite> - for keyboards;</li>
+                    <li><cite>CDT_Mouse</cite> - for mice;</li>
+                    <li><cite>CDT_Headset</cite> - for headsets;</li>
+                    <li><cite>CDT_Mousemat</cite> - for mouse mat;</li>
+                    <li><cite>CDT_HeadsetStand</cite> - for headset stand;</li>
+                    <li><cite>CDT_CommanderPro</cite> - for Commander PRO DIY-devices;</li>
+                    <li><cite>CDT_LightingNodePro</cite> - for Lighting Node PRO DIY-devices;</li>
+                    <li><cite>CDT_MemoryModule</cite> - for memory modules;</li>
+                    <li><cite>CDT_Cooler</cite> - for coolers;</li>
+                </ul>
+            </section>
+            <section id="corsairphysicallayout">
+                <h3>CorsairPhysicalLayout</h3>
+                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairPhysicalLayout</span></pre>
+                <p><strong>Description:</strong> contains list of available physical layouts for keyboards.</p>
+                <p><strong>Items:</strong></p>
+                <ul>
+                    <li><cite>CPL_US</cite>, <cite>CPL_UK</cite>, <cite>CPL_JP</cite>, <cite>CPL_KR</cite>, <cite>CPL_BR</cite> - valid values for keyboard;</li>
+                    <li><cite>CPL_Zones1</cite>, <cite>CPL_Zones2</cite>, <cite>CPL_Zones3</cite>, <cite>CPL_Zones4</cite> - valid values for mouse, number represents configurable mouse LEDs;</li>
+                    <li><cite>CPL_Invalid</cite> - dummy value.</li>
+                </ul>
+            </section>
+            <section id="corsairlogicallayout">
+                <h3>CorsairLogicalLayout</h3>
+                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairLogicalLayout</span></pre>
+                <p><strong>Description:</strong> contains list of available logical layouts for keyboards.</p>
+                <p><strong>Items:</strong></p>
+                <ul>
+                    <li><cite>CLL_US_Int</cite>, <cite>CLL_NA</cite>, <cite>CLL_EU</cite>, <cite>CLL_UK</cite>, <cite>CLL_BE</cite>, <cite>CLL_BR</cite>, <cite>CLL_CH</cite>, <cite>CLL_CN</cite>, <cite>CLL_DE</cite>, <cite>CLL_ES</cite>, <cite>CLL_FR</cite>, <cite>CLL_IT</cite>, <cite>CLL_ND</cite>, <cite>CLL_RU</cite>, <cite>CLL_JP</cite>, <cite>CLL_KR</cite>, <cite>CLL_TW</cite>, <cite>CLL_MEX</cite> - valid values;</li>
+                    <li><cite>CLL_Invalid</cite> - dummy value.</li>
+                </ul>
+            </section>
+            <section id="corsairdevicecaps">
+                <h3>CorsairDeviceCaps</h3>
+                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairDeviceCaps</span></pre>
+                <p><strong>Description:</strong> contains list of device capabilities. Current version of SDK only supports lighting and property lookup, but future versions may also support other capabilities.</p>
+                <p><strong>Items:</strong></p>
+                <ul>
+                    <li><cite>CDC_None == 0</cite> - for devices that do not support any SDK functions;</li>
+                    <li><cite>CDC_Lighting == 1</cite> - for devices that has controlled lighting;</li>
+                    <li><cite>CDC_PropertyLookup == 2</cite> - for devices that provide current state through set of properties. These properties could be read with <cite>CorsairGetBoolPropertyValue</cite> and <cite>CorsairGetInt32PropertyValue</cite> functions.</li>
+                </ul>
+            </section>
+            <section id="corsairdevicepropertytype">
+                <h3>CorsairDevicePropertyType</h3>
+                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairDevicePropertyType</span></pre>
+                <p><strong>Description:</strong> contains list of properties types.</p>
+                <p><strong>Items:</strong></p>
+                <ul>
+                    <li><cite>CDPT_Boolean = 0x1000</cite></li>
+                    <li><cite>CDPT_Int32 = 0x2000</cite></li>
+                </ul>
+            </section>
+            <section id="corsairdevicepropertyid">
+                <h3>CorsairDevicePropertyId</h3>
+                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairDevicePropertyId</span></pre>
+                <p><strong>Description:</strong> contains list of properties identifiers which can be read from device that supports <cite>CDC_PropertyLookup</cite> capability. Each identifier characterized by two values - id and data type. Data type is represented by high nibble and equals 1 for boolean or 2 for integer property values. E.g. <cite>CDPI_Headset_MicEnabled &amp; 0xF000 == CDPT_Boolean</cite>, <cite>CDPI_Headset_EqualizerPreset &amp; 0xF000 == CDPT_Int32</cite>.</p>
+                <p><strong>Items:</strong></p>
+                <ul>
+                    <li><cite>CDPI_Headset_MicEnabled = 0x1000</cite> - indicates Mic state (On or Off);</li>
+                    <li><cite>CDPI_Headset_SurroundSoundEnabled = 0x1001</cite></li>
+                    <li><cite>CDPI_Headset_SidetoneEnabled = 0x1002</cite></li>
+                    <li><cite>CDPI_Headset_EqualizerPreset = 0x2000</cite> - the number of active equalizer preset (integer, 1 - 5).</li>
+                </ul>
+            </section>
+            <section id="corsairaccessmode">
+                <h3>CorsairAccessMode</h3>
+                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairAccessMode</span></pre>
+                <p><strong>Description:</strong> contains list of available SDK access modes.</p>
+                <p><strong>Items:</strong></p>
+                <ul>
+                    <li><cite>CAM_ExclusiveLightingControl</cite></li>
+                </ul>
+            </section>
+            <section id="corsairerror">
+                <h3>CorsairError</h3>
+                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairError</span></pre>
+                <p><strong>Description:</strong> contains shared list of all errors that could happen during calling of Corsair* functions.</p>
+                <p><strong>Items:</strong></p>
+                <ul>
+                    <li><cite>CE_Success</cite> - If previously called function was completed successfully;</li>
+                    <li><cite>CE_ServerNotFound</cite> - if CUE is not running or was shut down or third-party control is disabled in CUE settings (runtime error);</li>
+                    <li><cite>CE_NoControl</cite> - if some other client has or took over exclusive control (runtime error);</li>
+                    <li><cite>CE_ProtocolHandshakeMissing</cite> - if developer did not perform protocol handshake (developer error);</li>
+                    <li><cite>CE_IncompatibleProtocol</cite> - if developer is calling the function that is not supported by the server (either protocol has been broken by server or client or the function is new and server is too old. Check <cite>CorsairProtocolDetails</cite> for details), (developer error);</li>
+                    <li><cite>CE_InvalidArguments</cite> - if developer supplied invalid arguments to the function (for specifics look at function descriptions), (developer error).</li>
+                </ul>
+            </section>
+            <section id="corsairledcolor">
+                <h3>CorsairLedColor</h3>
+                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairLedColor</span></pre>
+                <p><strong>Description:</strong> contains information about led and its color.</p>
+                <p><strong>Fields:</strong></p>
+                <ul>
+                    <li><cite>CorsairLedId ledId</cite> - identifier of LED to set;</li>
+                    <li><cite>int r</cite> - red brightness [0..255];</li>
+                    <li><cite>int g</cite> - green brightness [0..255];</li>
+                    <li><cite>int b</cite> - blue brightness [0..255].</li>
+                </ul>
+            </section>
+            <section id="corsairchanneldevicetype">
+                <h3>CorsairChannelDeviceType</h3>
+                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairChannelDeviceType</span></pre>
+                <p><strong>Description:</strong> contains list of the LED-devices which can be connected to the DIY-device or cooler.</p>
+                <p><strong>Items:</strong></p>
+                <ul>
+                    <li><cite>CCDT_HD_Fan</cite>, <cite>CCDT_SP_Fan</cite>, <cite>CCDT_LL_Fan</cite>, <cite>CCDT_ML_Fan</cite>, <cite>CCDT_Strip</cite>, <cite>CCDT_DAP</cite> - valid values;</li>
+                    <li><cite>CCDT_Pump</cite> - valid values;</li>
+                    <li><cite>CCDT_Invalid</cite> - dummy value.</li>
+                </ul>
+            </section>
+            <section id="corsairdeviceinfo">
+                <h3>CorsairDeviceInfo</h3>
+                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairDeviceInfo</span></pre>
+                <p><strong>Description:</strong> contains information about device.</p>
+                <p><strong>Fields:</strong></p>
+                <ul>
+                    <li><cite>CorsairDeviceType type</cite> - enum describing device type;</li>
+                    <li><cite>const char *model</cite> - null-terminated device model (like "K95RGB");</li>
+                    <li><cite>CorsairPhysicalLayout physicalLayout</cite> - enum describing physical layout of the keyboard or mouse. If device is neither keyboard nor mouse then value is <cite>CPL_Invalid</cite></li>
+                    <li><cite>CorsairLogicalLayout logicalLayout</cite> - enum describing logical layout of the keyboard as set in CUE settings. If device is not keyboard then value is <cite>CLL_Invalid</cite></li>
+                    <li><cite>int capsMask</cite> - mask that describes device capabilities, formed as logical "or" of <cite>CorsairDeviceCaps</cite> enum values;</li>
+                    <li><cite>int ledsCount</cite> - number of controllable LEDs on the device;</li>
+                    <li><cite>CorsairChannelsInfo channels</cite> - structure that describes channels of the DIY-devices and coolers;</li>
+                    <li><cite>CorsairDeviceId deviceId</cite> - null-terminated string that contains unique device identifier that uniquely identifies device at least within session.</li>
+                </ul>
+            </section>
+            <section id="corsairchannelsinfo">
+                <h3>CorsairChannelsInfo</h3>
+                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairChannelsInfo</span></pre>
+                <p><strong>Description:</strong> contains information about channels of the DIY-devices or cooler.</p>
+                <p><strong>Fields:</strong></p>
+                <ul>
+                    <li><cite>int channelsCount</cite> - number of channels controlled by the device;</li>
+                    <li><cite>CorsairChannelInfo* channels</cite> - array containing information about each separate channel of the device. Index of the channel in the array is same as index of the channel on the device.</li>
+                </ul>
+            </section>
+            <section id="corsairchannelinfo">
+                <h3>CorsairChannelInfo</h3>
+                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairChannelInfo</span></pre>
+                <p><strong>Description:</strong> contains information about separate channel of the DIY-device or cooler.</p>
+                <p><strong>Fields:</strong></p>
+                <ul>
+                    <li><cite>int totalLedsCount</cite> - total number of LEDs connected to the channel;</li>
+                    <li><cite>int devicesCount</cite> - number of LED-devices (fans, strips, etc.) connected to the channel which is controlled by the device;</li>
+                    <li><cite>CorsairChannelDeviceInfo* devices</cite> - array containing information about each separate LED-device connected to the channel controlled by the device. Index of the LED-device in array is same as the index of the LED-device connected to the device.</li>
+                </ul>
+            </section>
+            <section id="corsairchanneldeviceinfo">
+                <h3>CorsairChannelDeviceInfo</h3>
+                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairChannelDeviceInfo</span></pre>
+                <p><strong>Description:</strong> contains information about separate LED-device connected to the channel controlled by the DIY-device or cooler.</p>
+                <p><strong>Fields:</strong></p>
+                <ul>
+                    <li><cite>CorsairChannelDeviceType type</cite> -type of the LED-device;</li>
+                    <li><cite>int deviceLedCount</cite> - number of LEDs controlled by LED-device.</li>
+                </ul>
+            </section>
+            <section id="corsairledpositions">
+                <h3>CorsairLedPositions</h3>
+                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairLedPositions</span></pre>
+                <p><strong>Description:</strong> contains number of leds and array with their positions.</p>
+                <p><strong>Fields:</strong></p>
+                <ul>
+                    <li><cite>int numberOfLeds</cite> - integer value. Number of elements in the following array;</li>
+                    <li><cite>CorsairLedPosition* pLedPosition</cite> - array of led positions.</li>
+                </ul>
+            </section>
+            <section id="corsairledposition">
+                <h3>CorsairLedPosition</h3>
+                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairLedPosition</span></pre>
+                <p><strong>Description:</strong> contains led id and position of led rectangle. Most of the keys are rectangular. In case if key is not rectangular (like Enter in ISO/UK layout) it returns the smallest rectangle that fully contains the key.</p>
+                <p><strong>Fields:</strong></p>
+                <ul>
+                    <li><cite>CorsairLedId ledId</cite> - identifier of led;</li>
+                    <li><cite>double top</cite>, <cite>double left</cite>, <cite>double height</cite>, <cite>double width</cite> - for keyboards, mice, mousemats, headset stands and memory modules values are in mm, for DIY-devices, headsets and coolers values are in logical units.</li>
+                </ul>
+            </section>
+            <section id="corsairevent">
+                <h3>CorsairEvent</h3>
+                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairEvent</span></pre>
+                <p><strong>Description:</strong> contains information about event id and event data.</p>
+                <p><strong>Fields:</strong></p>
+                <ul>
+                    <li><cite>CorsairEventId id</cite> - event identifier.</li>
+                </ul>
+                <p>Anonymous union with fields:</p>
+                <ul>
+                    <li><cite>const CorsairDeviceConnectionStatusChangedEvent *deviceConnectionStatusChangedEvent</cite>- when id == <cite>CEI_DeviceConnectionStatusChangedEvent</cite> contains valid pointer to structure with information about connected or disconnected device;</li>
+                    <li><cite>const CorsairKeyEvent *keyEvent</cite> - when id == <cite>CEI_KeyEvent</cite> contains valid pointer to structure with information about pressed or released G or M button and device where this event happened.</li>
+                </ul>
+            </section>
+            <section id="corsairdeviceconnectionstatuschangedevent">
+                <h3>CorsairDeviceConnectionStatusChangedEvent</h3>
+                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairDeviceConnectionStatusChangedEvent</span></pre>
+                <p><strong>Description:</strong> contains information about some device that is connected or disconnected. When user receives this event, it makes sense to reenumerate device list, because device indices may become invalid at this moment.</p>
+                <p><strong>Fields:</strong></p>
+                <ul>
+                    <li><cite>CorsairDeviceId deviceId</cite> - null-terminated string that contains unique device identifier;</li>
+                    <li><cite>bool isConnected</cite> - true if connected, false if disconnected.</li>
+                </ul>
+            </section>
+            <section id="corsairkeyevent">
+                <h3>CorsairKeyEvent</h3>
+                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairKeyEvent</span></pre>
+                <p><strong>Description:</strong> contains information about device where G or M key was pressed/released and the key itself.</p>
+                <p><strong>Fields:</strong></p>
+                <ul>
+                    <li><cite>CorsairDeviceId deviceId</cite> - null-terminated string that contains unique device identifier;</li>
+                    <li><cite>CorsairKeyId keyId</cite> - G or M key that was pressed/released;</li>
+                    <li><cite>bool isPressed</cite> - true if pressed, false if released.</li>
+                </ul>
+            </section>
+            <section id="corsairprotocoldetails">
+                <h3>CorsairProtocolDetails</h3>
+                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairProtocolDetails</span></pre>
+                <p><strong>Description:</strong> contains information about SDK and CUE versions</p>
+                <p><strong>Fields:</strong></p>
+                <ul>
+                    <li><cite>const char *sdkVersion</cite> - null-terminated string containing version of SDK (like "1.0.0.1"). Always contains valid value even if there was no CUE found;</li>
+                    <li><cite>const char *serverVersion</cite> - null-terminated string containing version of CUE (like "1.0.0.1") or <cite>NULL</cite> if CUE was not found;</li>
+                    <li><cite>int sdkProtocolVersion</cite> - integer number that specifies version of protocol that is implemented by current SDK. Numbering starts from 1. Always contains valid value even if there was no CUE found;</li>
+                    <li><cite>int serverProtocolVersion</cite> - integer number that specifies version of protocol that is implemented by CUE. Numbering starts from 1. If CUE was not found then this value will be 0;</li>
+                    <li><cite>bool breakingChanges</cite> - boolean value that specifies if there were breaking changes between version of protocol implemented by server and client.</li>
+                </ul>
+            </section>
+        </section>
+        <section id="device-coordinates">
+            <h2>Device coordinates</h2>
+            <p>LED coordinates returned by <cite>CorsairGetLedPositions</cite> and <cite>CorsairGetLedPositionsByDeviceIndex</cite> functions are available on pictures below.</p>
+            <p>K95 RGB</p>
+            <img width="100%" src="images/k95rgb.png" />
+            <p>K95 RGB PLATINUM</p>
+            <img width="100%" src="images/k95rgbplatinum.png" />
+            <p>K68</p>
+            <img width="100%" src="images/k68.png" />
+            <p>K63</p>
+            <img width="100%" src="images/k63.png" />
+            <p>MM800 RGB</p>
+            <img width="100%" src="images/mm800rgb.png" />
+        </section>
+        <section id="examples-of-how-to-use-sdk">
+            <h2>Examples of how to use SDK</h2>
+            <p>There are usage <strong>examples</strong> in examples folder:</p>
+            <ul>
+                <li><strong>color_pulse</strong> plays pulse effect on all available LEDs on connected devices using <cite>CorsairGetDeviceCount</cite>, <cite>CorsairGetLedPositionsByDeviceIndex</cite>, <cite>CorsairSetLedsColorsAsync</cite> functions;</li>
+                <li><strong>color_pulse_by_device_index</strong> plays pulse effect on all available LEDs on connected devices using <cite>CorsairGetDeviceCount</cite>, <cite>CorsairGetLedPositionsByDeviceIndex</cite>, <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite>, <cite>CorsairSetLedsColorsFlushBufferAsync</cite> functions;</li>
+                <li><strong>progress</strong> shows how to implement basic progress bar with all keyboard LEDs on different layers using <cite>CorsairGetLedPositions</cite>, <cite>CorsairSetLedsColors</cite>, <cite>CorsairSetLayerPriority</cite> functions;</li>
+                <li><strong>text_highlight</strong> gets word from user input and one by one highlights keys that correspond to every char of that word. This example describes sample usage of <cite>CorsairRequestControl</cite>, <cite>CorsairGetLedIdForKeyName</cite>, <cite>CorsairSetLedsColors</cite> functions;</li>
+                <li><strong>register_callback</strong> shows how to register callback (pointer to function) that will be called by SDK when some of G or M keys are pressed or released using <cite>CorsairRegisterKeypressCallback</cite> function and how to get the actual state of the hardware LED, which could be a combination of SDK and/or CUE input using <cite>CorsairGetLedsColor</cite></li>
+                <li><strong>properties_example</strong> demonstrates how to use <cite>CorsairGetBoolPropertyValue</cite> and <cite>CorsairGetInt32PropertyValue</cite> to get properties of headset and headset stand.</li>
+                <li><strong>events_example</strong> - shows how to register callback (pointer to function) that will be called by SDK when some event happened (some Corsair device is connected or disconnected, some of G or M keys are pressed or released) using <cite>CorsairSubscribeForEvents</cite> function, how to unregister callback using <cite>CorsairUnsubscribeFromEvents</cite> function and how to distinguish between events by event id.</li>
+            </ul>
+        </section>
+        <section id="end-user-license-agreement">
+            <h2>End User License Agreement</h2>
+            <p>On-Line End User License Agreement</p>
+            <p>IMPORTANT: This End-User License Agreement ("EULA") is a legal Agreement between you and Corsair Components Inc., and any of its affiliates and/or subsidiaries ("Corsair") with respect to the software, SDKs and source code provided by Corsair, any associated media, printed materials, "online" documentation and electronic documentation (collectively referred to as "Software"). By installing, copying, or otherwise using the Software, you agree to be bound by the terms of this EULA. "You" and "Your" may refer to a natural person or to a legal entity including, but not limited to, a corporation, partnership or a limited liability company If you do not agree to the terms of this EULA, you are not authorized to install or use the Software.</p>
+            <ol type="1">
+                <li>Ownership of Software.</li>
+            </ol>
+            <p>Corsair owns certain rights in the Software. THE SOFTWARE IS A PROPRIETARY PRODUCT OF CORSAIR OR THIRD PARTIES FROM WHOM CORSAIR HAS OBTAINED LICENSING RIGHTS. THE SOFTWARE IS PROTECTED BY COPYRIGHT LAWS AND OTHER INTELLECTUAL PROPERTY LAWS. TITLE TO THIS SOFTWARE, ANY COPY OF THIS SOFTWARE, AND ANY INTELLECTUAL PROPERTY RIGHTS IN THE SOFTWARE WILL AT ALL TIMES REMAIN WITH CORSAIR AND SUCH THIRD PARTIES. Your rights are defined by this Agreement which You agree creates a legally binding and valid contract. CORSAIR retains the right to utilize its affiliated companies, authorized distributors, authorized resellers and other third parties in pursuing any of its rights and fulfilling any of its obligations under this Agreement.</p>
+            <ol start="2" type="1">
+                <li>License Grant.</li>
+            </ol>
+            <p>CORSAIR grants to You a nonexclusive, nontransferable (except as may be required by applicable law) royalty-free license to allow You to use the Software.</p>
+            <ol start="3" type="1">
+                <li>Your Responsibilities and Prohibited Actions.</li>
+            </ol>
+            <p>(a) Transfer of Rights. You may not transfer or assign all or any portion of the Software, or any rights granted in this Agreement, to any other person.</p>
+            <p>(b) Reverse Engineering or Modifying the Software. You will not reverse engineer, decompile, translate, disassemble, or otherwise attempt to discover the source code of the Software. The prohibition against modifying or reverse engineering the Software does not apply to the extent that You are allowed to do so by applicable law including, but not limited to, the European Union Directive on the Interoperability of Software or its implementing legislation in the member countries. You may not otherwise modify, alter, adapt, or merge the Software.</p>
+            <p>(c) Third Party Supplier. You agree that CORSAIR's third party suppliers may enforce this Agreement as it relates to their Software directly against You.</p>
+            <p>(d) Export. CORSAIR shall not be required to undertake any action pursuant to this Agreement that is prevented by any impediments arising out of national or international foreign trade or customs requirements, including embargoes or any other sanctions. This Agreement is subject to all United States government laws and regulations as may be enacted, amended or modified from time to time regarding the export from the United States of CORSAIR software, services, technology, or any derivatives thereof. You will not export or re-export any CORSAIR software, services, technology, or any derivatives thereof, or permit the shipment of same. This section will survive the expiration or termination of this Agreement for any reason.</p>
+            <ol start="4" type="1">
+                <li>Term and Termination.</li>
+            </ol>
+            <p>CORSAIR reserves the right to terminate this Agreement if You fail to comply with any of the terms described herein. All license rights granted will cease upon any termination of this Agreement.</p>
+            <ol start="5" type="1">
+                <li>Disclaimer of Warranty.</li>
+            </ol>
+            <p>CORSAIR MAKES NO WARRANTIES OF ANY KIND, AND NO WARRANTY IS GIVEN THAT THE SOFTWARE IS ERROR-FREE OR THAT ITS USE WILL BE UNINTERRUPTED OR THAT IT WILL WORK IN CONNECTION WITH ANY OTHER SOFTWARE. ALL WARRANTIES, CONDITIONS, REPRESENTATIONS, INDEMNITIES AND GUARANTEES, WHETHER EXPRESS OR IMPLIED, ARISING BY LAW, CUSTOM, PRIOR ORAL OR WRITTEN STATEMENTS (INCLUDING, BUT NOT LIMITED TO, ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR PARTICULAR PURPOSE OR OF ERROR-FREE AND UNINTERRUPTED USE OR ANY WARRANTY AGAINST INFRINGEMENT) ARE HEREBY OVERRIDDEN, EXCLUDED AND DISCLAIMED, EXCEPT AS OTHERWISE EXPRESSLY STATED IN THIS LICENSE AGREEMENT.</p>
+            <ol start="6" type="1">
+                <li>Limitation of Liability.</li>
+            </ol>
+            <p>CORSAIR's entire liability for all claims or damages arising out of or related to this Agreement, regardless of the form of action, whether in contract, equity, negligence, intended conduct, tort or otherwise, will be limited to and will not exceed, in the aggregate for all claims, actions and causes of action of every kind and nature; the amount paid to CORSAIR for the specific item that caused the damage or that is the subject matter of the cause of action. In no event will the measure of damages payable by CORSAIR include, nor will CORSAIR be liable for, any amounts for loss of income, profit or savings or indirect, incidental, consequential, exemplary, punitive or special damages of any party, including third parties, even if CORSAIR has been advised of the possibility of such damages in advance, and all such damages are expressly disclaimed. This section shall not be interpreted to exclude any liability that is prohibited from being excluded by applicable law. Except as otherwise provided by applicable law, no claim, regardless of form, arising out of or in connection with this Agreement may be brought by You unless such claim is brought either (i) within two years after the cause of action has accrued or (ii) within the shortest period of time after the cause of action has accrued that may be legally contracted for in the applicable jurisdiction if a two year limitation would be legally unenforceable.</p>
+            <ol start="7" type="1">
+                <li>Software Support Services.</li>
+            </ol>
+            <p>CORSAIR offers technical support services. See www.corsair.com. Such technical support shall be provided in CORSAIR's sole discretion without any guarantee or warranty of any kind. It is your responsibility to back up of all your existing data, software and programs before receiving any technical support from CORSAIR. CORSAIR reserves the right to refuse, suspend or terminate any technical support, in its sole discretion.</p>
+            <ol start="8" type="1">
+                <li>Choice of Law and Jurisdiction.</li>
+            </ol>
+            <p>This Agreement will be governed by and construed in accordance with the substantive laws of the State of California in the United States, without giving effect to any choice-of-law rules that may require the application of the laws of another jurisdiction. This Agreement will not be governed by the United Nations Convention on Contracts for the International Sale of Goods, the application of which is expressly excluded. Any disputes arising under this Agreement shall be settled exclusively in the California state courts or United States federal courts located in California. The parties hereby submit to the personal jurisdiction of such courts for the purpose of resolving any dispute under this Agreement.</p>
+            <ol start="9" type="1">
+                <li>Severability/Reformation.</li>
+            </ol>
+            <p>If any provision of this Agreement is found to be void or unenforceable, it will not affect the validity of any other provision of this Agreement and those provisions will remain valid and enforceable according to their terms. To the extent that an unenforceable provision may be reformed to be enforceable by a court of law, such provision will be deemed to be so reformed in this Agreement.</p>
+            <ol start="10" type="1">
+                <li>Other Rights Reserved.</li>
+            </ol>
+            <p>All rights not specifically granted in this Agreement are reserved by Corsair.</p>
+            <ol start="11" type="1">
+                <li>Entire Agreement.</li>
+            </ol>
+            <p>You acknowledge that You have read this Agreement, understand it and agree to be bound by its terms and conditions. You further agree that it is the complete and exclusive statement of the agreement between us which supersedes any proposal or prior agreement, oral or written, and any other communications between us relating to the subject matter of this Agreement.</p>
+        </section>
+    </section>
+</body>
+</html>
