@@ -2,7 +2,7 @@
 
 This repository is for CUE SDK releases and documentation.
 
-Developers can use the CUE SDK to access CORSAIR devices, enabling them to control device LEDs and create custom ligthing experiences.
+Developers can use the CUE SDK to access CORSAIR devices, enabling them to control device LEDs and create custom lighting experiences.
 
 ## Resources
 
