@@ -285,7 +285,7 @@
                 <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLedsColorsFlushBuffer</span><span class="p">();</span></pre>
                 <p><strong>Description:</strong> writes to the devices LEDs colors buffer which is previously filled by the <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> function. This function executes synchronously, if you are concerned about delays consider using <cite>CorsairSetLedsColorsFlushBufferAsync</cite></p>
                 <p><strong>Input arguments:</strong> no.</p>
-                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId in the LEDs colors buffer present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while itâ€™s disconnected) then functions completes successfully and returns true.</p>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId in the LEDs colors buffer present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while it's disconnected) then functions completes successfully and returns true.</p>
                 <p><strong>Possible errors:</strong></p>
                 <ul>
                     <li><cite>CorsairErrorServerNotFound</cite>, <cite>CorsairErrorNoControl</cite>, <cite>CorsairErrorProtocolHandshakeMissing</cite></li>
@@ -307,7 +307,7 @@
                     </li>
                     <li><cite>void *context</cite> - arbitrary context that will be returned in callback call. Can be <cite>NULL</cite></li>
                 </ul>
-                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId in the LEDs colors buffer present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while itâ€™s disconnected) then functions completes successfully and returns true.</p>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId in the LEDs colors buffer present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while it's disconnected) then functions completes successfully and returns true.</p>
                 <p><strong>Possible errors:</strong></p>
                 <ul>
                     <li><cite>CorsairErrorProtocolHandshakeMissing</cite></li>
@@ -349,7 +349,7 @@
                     <li><cite>int size</cite> - number of leds in <cite>ledsColors</cite> array;</li>
                     <li><cite>CorsairLedColor* ledsColors</cite> - array containing colors for each LED. Caller should only fill ledId field, and then SDK will fill R, G and B values on return;</li>
                 </ul>
-                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while itâ€™s disconnected) then functions completes successfully and returns true.</p>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while it's disconnected) then functions completes successfully and returns true.</p>
                 <p>Also ledsColors array will contain R, G and B values of colors on return.</p>
                 <p><strong>Possible errors:</strong></p>
                 <ul>
@@ -368,7 +368,7 @@
                     <li><cite>int size</cite> - number of LEDs in <cite>ledsColors</cite> array;</li>
                     <li><cite>CorsairLedColor* ledsColors</cite> - array containing colors for each LED. Caller should only fill ledId field, and then SDK will fill R, G and B values on return.</li>
                 </ul>
-                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while itâ€™s disconnected) then functions completes successfully and returns true. Also ledsColors array will contain R, G and B values of colors on return.</p>
+                <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while it's disconnected) then functions completes successfully and returns true. Also ledsColors array will contain R, G and B values of colors on return.</p>
                 <p><strong>Possible errors:</strong></p>
                 <ul>
                     <li><cite>CE_ServerNotFound</cite>, <cite>CE_ProtocolHandshakeMissing</cite></li>
@@ -416,7 +416,7 @@
             <section id="corsairsetlayerpriority">
                 <h3>CorsairSetLayerPriority</h3>
                 <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLayerPriority</span><span class="p">(</span><span class="kt">int</span> <span class="n">priority</span><span class="p">);</span></pre>
-                <p><strong>Description:</strong> set layer priority for this shared client. By default CUE has priority of 127 and all shared clients have priority of 128 if they donâ€™t call this function. Layers with higher priority value are shown on top of layers with lower priority.</p>
+                <p><strong>Description:</strong> set layer priority for this shared client. By default CUE has priority of 127 and all shared clients have priority of 128 if they don't call this function. Layers with higher priority value are shown on top of layers with lower priority.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
                     <li><cite>int priority</cite> - priority of a layer [0..255];</li>
@@ -528,7 +528,7 @@
                 <p><strong>Description:</strong> retrieves led id for key name taking logical layout into account. So on AZERTY keyboards if user calls <cite>CorsairGetLedIdForKeyName('A')</cite> he gets <cite>CLK_Q</cite>. This id can be used in CorsairSetLedsColors function.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
-                    <li><cite>char keyName</cite> - key name. [â€˜Aâ€™..â€™Zâ€™] (26 values) are valid values.</li>
+                    <li><cite>char keyName</cite> - key name. ['A'..'Z'] (26 values) are valid values.</li>
                 </ul>
                 <p><strong>Returns:</strong> proper <cite>CorsairLedId</cite> or <cite>CLI_Invalid</cite> if error occurred.</p>
                 <p><strong>Possible errors:</strong></p>
