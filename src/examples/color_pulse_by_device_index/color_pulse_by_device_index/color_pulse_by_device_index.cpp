@@ -72,7 +72,7 @@ int main()
 {
 	CorsairPerformProtocolHandshake();
 	if (const auto error = CorsairGetLastError()) {
-		std::cout << "Handshake failed: " << toString(error) << "\nPress any key tro quit." << std::endl;
+		std::cout << "Handshake failed: " << toString(error) << "\nPress any key to quit." << std::endl;
 		getchar();
 		return -1;
 	}
