@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CUE SDK Overview and Reference</title>
+    <title>CUE SDK</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
-    <section id="cue-sdk-overview-and-reference">
-        <h1>CUE SDK Overview and Reference</h1>
-        <p><strong>Protocol version 11</strong></p>
+    <section id="cue-sdk">
+        <h1>CUE SDK</h1>
+        <p class="cover-page-subtitle">Overview and Reference</p>
+        <hr />
+        <p class="cover-page-text">Protocol version 12</p>
         <aside id="table-of-contents" class="topic contents">
             <h1>Table of Contents</h1>
             <ul>
@@ -210,6 +212,8 @@
                             <li>H150i PRO</li>
                             <li>H100i Platinum</li>
                             <li>H115i Platinum</li>
+                            <li>CORSAIR ONE</li>
+                            <li>CORSAIR ONE PRO</li>
                         </ul>
                     </li>
                 </ul>
@@ -255,7 +259,7 @@
                 <h3>CorsairSetLedsColors</h3>
                 <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLedsColors</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">CorsairLedColor</span><span class="o">*</span> <span class="n">ledsColors</span><span class="p">);</span></pre>
                 <p><strong>Description:</strong> set specified leds to some colors. The color is retained until changed by successive calls. This function does not take logical layout into account. This function executes synchronously, if you are concerned about delays consider using <cite>CorsairSetLedsColorsAsync</cite></p>
-                <aside class="note">It is not recommended to use this function with DIY-devices, coolers and memory modules (leds: CLD_C1_1, ..., CLD_C1_150, CLD_C2_1, ..., CLD_C2_150, CLD_C3_1, ..., CLD_C3_150, CLLC_C1_1, ..., CLLC_C1_150 and CLDRAM_1, ..., CLDRAM_12). Consider using <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> and <cite>CorsairSetLedsColorsFlushBuffer</cite> functions instead.</aside>
+                <aside class="note">It is not recommended to use this function with DIY-devices, coolers and memory modules (leds: CLD_C1_1, ..., CLD_C1_150, CLD_C1_151, ..., CLD_C1_300, CLD_C2_1, ..., CLD_C2_150, CLD_C2_151, ..., CLD_C2_300, CLD_C3_1, ..., CLD_C3_150, CLD_C3_151, ..., CLD_C3_300, CLLC_C1_1, ..., CLLC_C1_150 and CLDRAM_1, ..., CLDRAM_12). Consider using <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> and <cite>CorsairSetLedsColorsFlushBuffer</cite> functions instead.</aside>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
                     <li><cite>int size</cite> - number of leds in <cite>ledsColors</cite> array;</li>
@@ -325,7 +329,7 @@
 <span class="n">ledsColors</span><span class="p">,</span> <span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">CallbackType</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="kt">bool</span><span class="p">,</span> <span class="n">CorsairError</span><span class="p">),</span>
 <span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">);</span></pre>
                 <p><strong>Description:</strong> same as <cite>CorsairSetLedsColors</cite> but returns control to the caller immediately.</p>
-                <aside class="note">It is not recommended to use this function with DIY-devices, coolers and memory modules (leds: CLD_C1_1, ..., CLD_C1_150, CLD_C2_1, ..., CLD_C2_150, CLD_C3_1, ..., CLD_C3_150, CLLC_C1_1, ..., CLLC_C1_150 and CLDRAM_1, ..., CLDRAM_12). Consider using <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> and <cite>CorsairSetLedsColorsFlushBuffer</cite> functions instead.</aside>
+                <aside class="note">It is not recommended to use this function with DIY-devices, coolers and memory modules (leds: CLD_C1_1, ..., CLD_C1_150, CLD_C1_151, ..., CLD_C1_300, CLD_C2_1, ..., CLD_C2_150, CLD_C2_151, ..., CLD_C2_300, CLD_C3_1, ..., CLD_C3_150, CLD_C3_151, ..., CLD_C3_300, CLLC_C1_1, ..., CLLC_C1_150 and CLDRAM_1, ..., CLDRAM_12). Consider using <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> and <cite>CorsairSetLedsColorsFlushBuffer</cite> functions instead.</aside>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
                     <li><cite>int size</cite> - number of leds in <cite>ledsColors</cite> array;</li>
@@ -617,17 +621,19 @@
                 <p><strong>Item samples:</strong></p>
                 <ul>
                     <li><cite>CLK_F1</cite>, <cite>CLK_Esc</cite>, <cite>CLK_Q</cite>, <cite>CLK_1</cite>, <cite>CLK_UpArrow</cite>, <cite>CLK_G1</cite>, ... - for keyboard leds;</li>
-                    <li><cite>CLKLP_Zone1</cite>, <cite>CLKLP_Zone2</cite>, ..., <cite>CLKLP_Zone19</cite> - for keyboard light pipe leds;</li>
+                    <li><cite>CLKLP_Zone1</cite>, ..., <cite>CLKLP_Zone19</cite>, <cite>CLKLP_Zone20</cite>, ..., <cite>CLKLP_Zone50</cite> - for keyboard light pipe leds;</li>
                     <li><cite>CLM_1</cite>, <cite>CLM_2</cite>, ..., <cite>CLM_4</cite> - for mouse leds;</li>
                     <li><cite>CLH_LeftLogo</cite>, <cite>CLH_RightLogo</cite> - for headset leds;</li>
                     <li><cite>CLMM_1</cite>, <cite>CLMM_2</cite>, ..., <cite>CLMM_15</cite> - for mousemat leds;</li>
                     <li><cite>CLHSS_Zone1</cite>, <cite>CLHSS_Zone2</cite>, ..., <cite>CLHSS_Zone9</cite> - for headset stand leds;</li>
-                    <li><cite>CLD_C1_1</cite>, ..., <cite>CLD_C1_150</cite> - for first channel of the DIY-devices;</li>
-                    <li><cite>CLD_C2_1</cite>, ..., <cite>CLD_C2_150</cite> - for second channel of the DIY-devices;</li>
+                    <li><cite>CLD_C1_1</cite>, ..., <cite>CLD_C1_150</cite>, <cite>CLD_C1_151</cite>, ..., <cite>CLD_C1_300</cite> - for first channel of the DIY-devices;</li>
+                    <li><cite>CLD_C2_1</cite>, ..., <cite>CLD_C2_150</cite>, <cite>CLD_C2_151</cite>, ..., <cite>CLD_C2_300</cite> - for second channel of the DIY-devices;</li>
                     <li><cite>CLI_Oem1</cite>, ..., <cite>CLI_Oem100</cite> - reserved range for custom leds;</li>
                     <li><cite>CLDRAM_1</cite>, ..., <cite>CLDRAM_12</cite> - for memory module leds;</li>
-                    <li><cite>CLD_C3_1</cite>, ..., <cite>CLD_C3_150</cite> - for third channel of the DIY-devices;</li>
+                    <li><cite>CLD_C3_1</cite>, ..., <cite>CLD_C3_150</cite>, <cite>CLD_C3_151</cite>, ..., <cite>CLD_C3_300</cite> - for third channel of the DIY-devices;</li>
                     <li><cite>CLLC_C1_1</cite>, ..., <cite>CLLC_C1_150</cite> - for first channel of the liquid coolers;</li>
+                    <li><cite>CLMB_Zone1</cite>, ..., <cite>CLMB_Zone100</cite> - for motherboard leds;</li>
+                    <li><cite>CLGPU_Zone1</cite>, ..., <cite>CLGPU_Zone50</cite> - for graphics card leds;</li>
                     <li><cite>CLI_Invalid</cite> - dummy value.</li>
                 </ul>
             </section>
@@ -674,6 +680,8 @@
                     <li><cite>CDT_CommanderPro</cite> - for Commander PRO DIY-devices;</li>
                     <li><cite>CDT_LightingNodePro</cite> - for Lighting Node PRO DIY-devices;</li>
                     <li><cite>CDT_MemoryModule</cite> - for memory modules;</li>
+                    <li><cite>CDT_Motherboard</cite> - for motherboards;</li>
+                    <li><cite>CDT_GraphicsCard</cite> - for graphics cards;</li>
                     <li><cite>CDT_Cooler</cite> - for coolers;</li>
                 </ul>
             </section>
@@ -772,8 +780,7 @@
                 <p><strong>Description:</strong> contains list of the LED-devices which can be connected to the DIY-device or cooler.</p>
                 <p><strong>Items:</strong></p>
                 <ul>
-                    <li><cite>CCDT_HD_Fan</cite>, <cite>CCDT_SP_Fan</cite>, <cite>CCDT_LL_Fan</cite>, <cite>CCDT_ML_Fan</cite>, <cite>CCDT_Strip</cite>, <cite>CCDT_DAP</cite> - valid values;</li>
-                    <li><cite>CCDT_Pump</cite> - valid values;</li>
+                    <li><cite>CCDT_HD_Fan</cite>, <cite>CCDT_SP_Fan</cite>, <cite>CCDT_LL_Fan</cite>, <cite>CCDT_ML_Fan</cite>, <cite>CCDT_Strip</cite>, <cite>CCDT_DAP</cite>, <cite>CCDT_Pump</cite>, <cite>CCDT_QL_Fan</cite> - valid values;</li>
                     <li><cite>CCDT_Invalid</cite> - dummy value.</li>
                 </ul>
             </section>
@@ -968,7 +975,7 @@
             </blockquote>
             <p>All rights not specifically granted in this Agreement are reserved by Corsair.</p>
             <blockquote>
-                <p>11. Entire Agree ment.</p>
+                <p>11. Entire Agreement.</p>
             </blockquote>
             <p>You acknowledge that You have read this Agreement, understand it and agree to be bound by its terms and conditions. You further agree that it is the complete and exclusive statement of the agreement between us which supersedes any proposal or prior agreement, oral or written, and any other communications between us relating to the subject matter of this Agreement.</p>
         </section>
