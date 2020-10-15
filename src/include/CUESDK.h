@@ -122,7 +122,9 @@ extern "C"
 		CCDT_Strip = 5,
 		CCDT_DAP = 6,
 		CCDT_Pump = 7,
-		CCDT_QL_Fan = 8
+		CCDT_QL_Fan = 8,
+		CCDT_WaterBlock = 9,
+		CCDT_SPPRO_Fan = 10
 	};
 
 	enum CorsairDevicePropertyType
