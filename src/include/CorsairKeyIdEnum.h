@@ -1,3 +1,13 @@
+/******************************************************************************
+**
+** File      CorsairKeyIdEnum.h
+** Author    Vladislav Pyatnichenko
+** Copyright (c) 2021, Corsair Memory, Inc. All Rights Reserved.
+**
+** This file is part of Corsair SDK Lighting Effects.
+**
+******************************************************************************/
+
 #pragma once
 
 enum CorsairKeyId

@@ -1,3 +1,13 @@
+/******************************************************************************
+**
+** File      color_pulse_by_device_index.cpp
+** Author    Illia Okonskyi
+** Copyright (c) 2021, Corsair Memory, Inc. All Rights Reserved.
+**
+** This file is part of Corsair SDK Lighting Effects.
+**
+******************************************************************************/
+
 #ifdef __APPLE__
 #include <CUESDK/CUESDK.h>
 #else

@@ -1,3 +1,14 @@
+/******************************************************************************
+**
+** File      CUESDK.h
+** Author    Denys Romanenko
+** Author    Igor Lifanov
+** Copyright (c) 2021, Corsair Memory, Inc. All Rights Reserved.
+**
+** This file is part of Corsair SDK Lighting Effects.
+**
+******************************************************************************/
+
 #pragma once
 
 #include "CUESDKGlobal.h"
@@ -64,7 +75,23 @@ extern "C"
 		CPL_Zones1 = 6,
 		CPL_Zones2 = 7,
 		CPL_Zones3 = 8,
-		CPL_Zones4 = 9			// valid values for mouse.
+		CPL_Zones4 = 9,
+		CPL_Zones5 = 10,
+		CPL_Zones6 = 11,
+		CPL_Zones7 = 12,
+		CPL_Zones8 = 13,
+		CPL_Zones9 = 14,
+		CPL_Zones10 = 15,
+		CPL_Zones11 = 16,
+		CPL_Zones12 = 17,
+		CPL_Zones13 = 18,
+		CPL_Zones14 = 19,
+		CPL_Zones15 = 20,
+		CPL_Zones16 = 21,
+		CPL_Zones17 = 22,
+		CPL_Zones18 = 23,
+		CPL_Zones19 = 24,
+		CPL_Zones20 = 25		// valid values for mouse.
 	};
 
 	enum CorsairLogicalLayout	// contains list of available logical layouts for keyboards.

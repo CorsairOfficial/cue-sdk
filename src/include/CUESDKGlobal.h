@@ -1,3 +1,13 @@
+/******************************************************************************
+**
+** File      CUESDKGlobal.h
+** Author    Vladimir Rudenko
+** Copyright (c) 2021, Corsair Memory, Inc. All Rights Reserved.
+**
+** This file is part of Corsair SDK Lighting Effects.
+**
+******************************************************************************/
+
 #pragma once
 
 #ifndef _LIB

@@ -1,3 +1,13 @@
+/******************************************************************************
+**
+** File      color_pulse.cpp
+** Author    Igor Lifanov
+** Copyright (c) 2021, Corsair Memory, Inc. All Rights Reserved.
+**
+** This file is part of Corsair SDK Lighting Effects.
+**
+******************************************************************************/
+
 #define CORSAIR_LIGHTING_SDK_DISABLE_DEPRECATION_WARNINGS
 
 #ifdef __APPLE__

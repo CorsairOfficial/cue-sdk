@@ -1,3 +1,13 @@
+/******************************************************************************
+**
+** File      main.cpp
+** Author    Denys Romanenko
+** Copyright (c) 2021, Corsair Memory, Inc. All Rights Reserved.
+**
+** This file is part of Corsair SDK Lighting Effects.
+**
+******************************************************************************/
+
 #include <iostream>
 #include <string>
 
