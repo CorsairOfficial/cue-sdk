@@ -269,7 +269,7 @@
             <h2>Reference</h2>
             <section id="corsairsetledscolors">
                 <h3>CorsairSetLedsColors</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLedsColors</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">CorsairLedColor</span><span class="o">*</span> <span class="n">ledsColors</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairSetLedsColors</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">CorsairLedColor</span><span class="o">*</span><span class="w"> </span><span class="n">ledsColors</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> set specified leds to some colors. The color is retained until changed by successive calls. This function does not take logical layout into account. This function executes synchronously, if you are concerned about delays consider using <cite>CorsairSetLedsColorsAsync</cite></p>
                 <aside class="note">It is not recommended to use this function with DIY-devices, coolers and memory modules (leds: CLD_C1_1, ..., CLD_C1_150, CLD_C1_151, ..., CLD_C1_300, CLD_C2_1, ..., CLD_C2_150, CLD_C2_151, ..., CLD_C2_300, CLD_C3_1, ..., CLD_C3_150, CLD_C3_151, ..., CLD_C3_300, CLLC_C1_1, ..., CLLC_C1_150 and CLDRAM_1, ..., CLDRAM_12). Consider using <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> and <cite>CorsairSetLedsColorsFlushBuffer</cite> functions instead.</aside>
                 <p><strong>Input arguments:</strong></p>
@@ -286,8 +286,8 @@
             </section>
             <section id="corsairsetledscolorsbufferbydeviceindex">
                 <h3>CorsairSetLedsColorsBufferByDeviceIndex</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLedsColorsBufferByDeviceIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">deviceIndex</span><span class="p">,</span>
-<span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">CorsairLedColor</span><span class="o">*</span> <span class="n">ledsColors</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairSetLedsColorsBufferByDeviceIndex</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">deviceIndex</span><span class="p">,</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">CorsairLedColor</span><span class="o">*</span><span class="w"> </span><span class="n">ledsColors</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> set specified LEDs to some colors. This function set LEDs colors in the buffer which is written to the devices via <cite>CorsairSetLedsColorsFlushBuffer</cite> or <cite>CorsairSetLedsColorsFlushBufferAsync</cite>. Typical usecase is next: <cite>CorsairSetLedsColorsFlushBuffer</cite> or <cite>CorsairSetLedsColorsFlushBufferAsync</cite> is called to write LEDs colors to the device and follows after one or more calls of <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> to set the LEDs buffer. This function does not take logical layout into account.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -304,7 +304,7 @@
             </section>
             <section id="corsairsetledscolorsflushbuffer">
                 <h3>CorsairSetLedsColorsFlushBuffer</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLedsColorsFlushBuffer</span><span class="p">();</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairSetLedsColorsFlushBuffer</span><span class="p">();</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> writes to the devices LEDs colors buffer which is previously filled by the <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> function. This function executes synchronously, if you are concerned about delays consider using <cite>CorsairSetLedsColorsFlushBufferAsync</cite></p>
                 <p><strong>Input arguments:</strong> no.</p>
                 <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure. If there is no such ledId in the LEDs colors buffer present in currently connected hardware (missing key in physical keyboard layout, or trying to control mouse while it's disconnected) then functions completes successfully and returns true.</p>
@@ -315,8 +315,8 @@
             </section>
             <section id="corsairsetledscolorsflushbufferasync">
                 <h3>CorsairSetLedsColorsFlushBufferAsync</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLedsColorsFlushBufferAsync</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">callback</span><span class="p">)</span>
-<span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">result</span><span class="p">,</span> <span class="n">CorsairError</span> <span class="n">error</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairSetLedsColorsFlushBufferAsync</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">callback</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">CorsairError</span><span class="w"> </span><span class="n">error</span><span class="p">),</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> same as <cite>CorsairSetLedsColorsFlushBuffer</cite> but returns control to the caller immediately.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -337,9 +337,9 @@
             </section>
             <section id="corsairsetledscolorsasync">
                 <h3>CorsairSetLedsColorsAsync</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLedsColorsAsync</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">CorsairLedColor</span><span class="o">*</span>
-<span class="n">ledsColors</span><span class="p">,</span> <span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">CallbackType</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="kt">bool</span><span class="p">,</span> <span class="n">CorsairError</span><span class="p">),</span>
-<span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairSetLedsColorsAsync</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">CorsairLedColor</span><span class="o">*</span><span class="w"></span>
+<span class="n">ledsColors</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">CallbackType</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="n">CorsairError</span><span class="p">),</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> same as <cite>CorsairSetLedsColors</cite> but returns control to the caller immediately.</p>
                 <aside class="note">It is not recommended to use this function with DIY-devices, coolers and memory modules (leds: CLD_C1_1, ..., CLD_C1_150, CLD_C1_151, ..., CLD_C1_300, CLD_C2_1, ..., CLD_C2_150, CLD_C2_151, ..., CLD_C2_300, CLD_C3_1, ..., CLD_C3_150, CLD_C3_151, ..., CLD_C3_300, CLLC_C1_1, ..., CLLC_C1_150 and CLDRAM_1, ..., CLDRAM_12). Consider using <cite>CorsairSetLedsColorsBufferByDeviceIndex</cite> and <cite>CorsairSetLedsColorsFlushBuffer</cite> functions instead.</aside>
                 <p><strong>Input arguments:</strong></p>
@@ -364,7 +364,7 @@
             </section>
             <section id="corsairgetledscolors">
                 <h3>CorsairGetLedsColors</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairGetLedsColors</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">CorsairLedColor</span><span class="o">*</span> <span class="n">ledsColors</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairGetLedsColors</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">CorsairLedColor</span><span class="o">*</span><span class="w"> </span><span class="n">ledsColors</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> get current color for the list of requested LEDs. The color should represent the actual state of the hardware LED, which could be a combination of SDK and/or CUE input. This function works only for keyboard, mouse, mousemat, headset and headset stand devices.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -381,8 +381,8 @@
             </section>
             <section id="corsairgetledscolorsbydeviceindex">
                 <h3>CorsairGetLedsColorsByDeviceIndex</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairGetLedsColorsByDeviceIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">deviceIndex</span><span class="p">,</span>
-<span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="n">CorsairLedColor</span><span class="o">*</span> <span class="n">ledsColors</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairGetLedsColorsByDeviceIndex</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">deviceIndex</span><span class="p">,</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">CorsairLedColor</span><span class="o">*</span><span class="w"> </span><span class="n">ledsColors</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> get current color for the list of requested LEDs. The color should represent the actual state of the hardware LED, which could be a combination of SDK and/or CUE input. This function works for keyboard, mouse, mousemat, headset, headset stand, DIY-devices, memory module and cooler.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -399,8 +399,8 @@
             </section>
             <section id="corsairgetboolpropertyvalue">
                 <h3>CorsairGetBoolPropertyValue</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairGetBoolPropertyValue</span><span class="p">(</span><span class="kt">int</span> <span class="n">deviceIndex</span><span class="p">,</span>
-<span class="n">CorsairDevicePropertyId</span> <span class="n">propertyId</span><span class="p">,</span> <span class="kt">bool</span><span class="o">*</span> <span class="n">propertyValue</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairGetBoolPropertyValue</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">deviceIndex</span><span class="p">,</span><span class="w"></span>
+<span class="n">CorsairDevicePropertyId</span><span class="w"> </span><span class="n">propertyId</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="o">*</span><span class="w"> </span><span class="n">propertyValue</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> reads boolean property value for device at provided index.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -418,8 +418,8 @@
             </section>
             <section id="corsairgetint32propertyvalue">
                 <h3>CorsairGetInt32PropertyValue</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairGetInt32PropertyValue</span><span class="p">(</span><span class="kt">int</span> <span class="n">deviceIndex</span><span class="p">,</span>
-<span class="n">CorsairDevicePropertyId</span> <span class="n">propertyId</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">propertyValue</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairGetInt32PropertyValue</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">deviceIndex</span><span class="p">,</span><span class="w"></span>
+<span class="n">CorsairDevicePropertyId</span><span class="w"> </span><span class="n">propertyId</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">propertyValue</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> reads integer property value for device at provided index.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -437,7 +437,7 @@
             </section>
             <section id="corsairsetlayerpriority">
                 <h3>CorsairSetLayerPriority</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSetLayerPriority</span><span class="p">(</span><span class="kt">int</span> <span class="n">priority</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairSetLayerPriority</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">priority</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> set layer priority for this shared client. By default CUE has priority of 127 and all shared clients have priority of 128 if they don't call this function. Layers with higher priority value are shown on top of layers with lower priority.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -452,8 +452,8 @@
             </section>
             <section id="corsairsubscribeforevents">
                 <h3>CorsairSubscribeForEvents</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairSubscribeForEvents</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">CorsairEventHandler</span><span class="p">)</span>
-<span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">,</span> <span class="k">const</span> <span class="n">CorsairEvent</span> <span class="o">*</span><span class="n">event</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairSubscribeForEvents</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">CorsairEventHandler</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CorsairEvent</span><span class="w"> </span><span class="o">*</span><span class="n">event</span><span class="p">),</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> registers a callback that will be called by SDK when some event happened. If client is already subscribed but calls this function again SDK should use only last callback registered for sending notifications.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -474,7 +474,7 @@
             </section>
             <section id="corsairunsubscribefromevents">
                 <h3>CorsairUnsubscribeFromEvents</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairUnsubscribeFromEvents</span><span class="p">();</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairUnsubscribeFromEvents</span><span class="p">();</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> unregisters callback previously registered by <cite>CorsairSubscribeForEvents</cite> call.</p>
                 <p><strong>Input arguments:</strong> no.</p>
                 <p><strong>Returns:</strong> boolean value. True if successful. Use <cite>CorsairGetLastError()</cite> to check the reason of failure.</p>
@@ -485,7 +485,7 @@
             </section>
             <section id="corsairgetdevicecount">
                 <h3>CorsairGetDeviceCount</h3>
-                <pre data-language="c"><span class="kt">int</span> <span class="nf">CorsairGetDeviceCount</span><span class="p">();</span></pre>
+                <pre data-language="c"><span class="kt">int</span><span class="w"> </span><span class="nf">CorsairGetDeviceCount</span><span class="p">();</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> returns number of connected Corsair devices. For keyboards, mice, mousemats, headsets and headset stands not more than one device of each type is included in return value in case if there are multiple devices of same type connected to the system. For DIY-devices and coolers actual number of connected devices is included in return value. For memory modules actual number of connected modules is included in return value, modules are enumerated with respect to their logical position (counting from left to right, from top to bottom).</p>
                 <p>Use <cite>CorsairGetDeviceInfo()</cite> to get information about a certain device.</p>
                 <p><strong>Input arguments:</strong> no.</p>
@@ -497,7 +497,7 @@
             </section>
             <section id="corsairgetdeviceinfo">
                 <h3>CorsairGetDeviceInfo</h3>
-                <pre data-language="c"><span class="n">CorsairDeviceInfo</span> <span class="o">*</span><span class="nf">CorsairGetDeviceInfo</span><span class="p">(</span><span class="kt">int</span> <span class="n">deviceIndex</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="n">CorsairDeviceInfo</span><span class="w"> </span><span class="o">*</span><span class="nf">CorsairGetDeviceInfo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">deviceIndex</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> returns information about a device based on provided index.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -512,12 +512,12 @@
             </section>
             <section id="corsairdeviceid">
                 <h3>CorsairDeviceId</h3>
-                <pre data-language="c"><span class="k">typedef</span> <span class="kt">char</span> <span class="n">CorsairDeviceId</span><span class="p">[</span><span class="n">CORSAIR_DEVICE_ID_MAX</span><span class="p">]</span></pre>
+                <pre data-language="c"><span class="k">typedef</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">CorsairDeviceId</span><span class="p">[</span><span class="n">CORSAIR_DEVICE_ID_MAX</span><span class="p">]</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> defines a character array of length <cite>CORSAIR_DEVICE_ID_MAX</cite> (<cite>== 128</cite>) to store device identifier string.</p>
             </section>
             <section id="corsairgetledpositions">
                 <h3>CorsairGetLedPositions</h3>
-                <pre data-language="c"><span class="n">CorsairLedPositions</span> <span class="o">*</span><span class="nf">CorsairGetLedPositions</span><span class="p">();</span></pre>
+                <pre data-language="c"><span class="n">CorsairLedPositions</span><span class="w"> </span><span class="o">*</span><span class="nf">CorsairGetLedPositions</span><span class="p">();</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> provides list of keyboard LEDs with their physical positions. Coordinates grids for different device models can be found in Device coordinates.</p>
                 <p><strong>Input arguments:</strong> no.</p>
                 <p><strong>Returns:</strong> returns pointer to <cite>CorsairLedPositions</cite> struct or <cite>NULL</cite> if error has occurred.</p>
@@ -528,8 +528,8 @@
             </section>
             <section id="corsairgetledpositionsbydeviceindex">
                 <h3>CorsairGetLedPositionsByDeviceIndex</h3>
-                <pre data-language="c"><span class="n">CorsairLedPositions</span> <span class="o">*</span><span class="nf">CorsairGetLedPositionsByDeviceIndex</span><span class="p">(</span>
-<span class="kt">int</span> <span class="n">deviceIndex</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="n">CorsairLedPositions</span><span class="w"> </span><span class="o">*</span><span class="nf">CorsairGetLedPositionsByDeviceIndex</span><span class="p">(</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">deviceIndex</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> provides list of keyboard, mouse, headset, mousemat, headset stand, DIY-devices, memory module and cooler LEDs by its index with their positions. Position could be either physical (only device-dependent) or logical (depend on device as well as CUE settings).</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -546,7 +546,7 @@
             </section>
             <section id="corsairgetledidforkeyname">
                 <h3>CorsairGetLedIdForKeyName</h3>
-                <pre data-language="c"><span class="n">CorsairLedId</span> <span class="nf">CorsairGetLedIdForKeyName</span><span class="p">(</span><span class="kt">char</span> <span class="n">keyName</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="n">CorsairLedId</span><span class="w"> </span><span class="nf">CorsairGetLedIdForKeyName</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">keyName</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> retrieves led id for key name taking logical layout into account. So on AZERTY keyboards if user calls <cite>CorsairGetLedIdForKeyName('A')</cite> he gets <cite>CLK_Q</cite>. This id can be used in CorsairSetLedsColors function.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -561,7 +561,7 @@
             </section>
             <section id="corsairrequestcontrol">
                 <h3>CorsairRequestControl</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairRequestControl</span><span class="p">(</span><span class="n">CorsairAccessMode</span> <span class="n">accessMode</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairRequestControl</span><span class="p">(</span><span class="n">CorsairAccessMode</span><span class="w"> </span><span class="n">accessMode</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> requests control using specified access mode. By default client has shared control over lighting so there is no need to call CorsairRequestControl() unless a client requires exclusive control.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -576,7 +576,7 @@
             </section>
             <section id="corsairreleasecontrol">
                 <h3>CorsairReleaseControl</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairReleaseControl</span><span class="p">(</span><span class="n">CorsairAccessMode</span> <span class="n">accessMode</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairReleaseControl</span><span class="p">(</span><span class="n">CorsairAccessMode</span><span class="w"> </span><span class="n">accessMode</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> releases previously requested control for specified access mode.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
@@ -592,7 +592,7 @@
             </section>
             <section id="corsairperformprotocolhandshake">
                 <h3>CorsairPerformProtocolHandshake</h3>
-                <pre data-language="c"><span class="n">CorsairProtocolDetails</span> <span class="nf">CorsairPerformProtocolHandshake</span><span class="p">();</span></pre>
+                <pre data-language="c"><span class="n">CorsairProtocolDetails</span><span class="w"> </span><span class="nf">CorsairPerformProtocolHandshake</span><span class="p">();</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> checks file and protocol version of CUE to understand which of SDK functions can be used with this version of CUE.</p>
                 <p><strong>Input arguments:</strong> no.</p>
                 <p><strong>Returns:</strong> <cite>CorsairProtocolDetails</cite> struct.</p>
@@ -603,9 +603,9 @@
             </section>
             <section id="corsairregisterkeypresscallback">
                 <h3>CorsairRegisterKeypressCallback</h3>
-                <pre data-language="c"><span class="kt">bool</span> <span class="nf">CorsairRegisterKeypressCallback</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">CallbackType</span><span class="p">)</span>
-<span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">,</span> <span class="n">CorsairKeyId</span> <span class="n">keyId</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">pressed</span><span class="p">),</span>
-<span class="kt">void</span> <span class="o">*</span><span class="n">context</span><span class="p">);</span></pre>
+                <pre data-language="c"><span class="kt">bool</span><span class="w"> </span><span class="nf">CorsairRegisterKeypressCallback</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">CallbackType</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">CorsairKeyId</span><span class="w"> </span><span class="n">keyId</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">pressed</span><span class="p">),</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="p">);</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> registers a callback that will be called by SDK when some of G or M keys are pressed or released.</p>
                 <aside class="note">It is not recommended to use this function. Consider using <cite>CorsairSubscribeForEvents</cite> and <cite>CorsairUnsubscribeFromEvents</cite> instead.</aside>
                 <p><strong>Input arguments:</strong></p>
@@ -628,7 +628,7 @@
             </section>
             <section id="corsairledid">
                 <h3>CorsairLedId</h3>
-                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairLedId</span></pre>
+                <pre data-language="c"><span class="k">enum</span><span class="w"> </span><span class="n">CorsairLedId</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains shared list of all leds on all devices (keyboard, mouse, mouse mat, headset, headset stand, DIY, memory module, cooler) and all models/physical layouts.</p>
                 <p><strong>Item samples:</strong></p>
                 <ul>
@@ -651,7 +651,7 @@
             </section>
             <section id="corsairkeyid">
                 <h3>CorsairKeyId</h3>
-                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairKeyId</span></pre>
+                <pre data-language="c"><span class="k">enum</span><span class="w"> </span><span class="n">CorsairKeyId</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains shared list of G and M keys (not all available keys!).</p>
                 <p><strong>Items samples:</strong></p>
                 <ul>
@@ -662,7 +662,7 @@
             </section>
             <section id="corsairgetlasterror">
                 <h3>CorsairGetLastError</h3>
-                <pre data-language="c"><span class="n">CorsairError</span> <span class="nf">CorsairGetLastError</span><span class="p">();</span></pre>
+                <pre data-language="c"><span class="n">CorsairError</span><span class="w"> </span><span class="nf">CorsairGetLastError</span><span class="p">();</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> returns last error that occurred in this thread while using any of Corsair* functions.</p>
                 <p><strong>Input arguments:</strong> no.</p>
                 <p><strong>Returns:</strong> <cite>CorsairError</cite> value.</p>
@@ -670,7 +670,7 @@
             </section>
             <section id="corsaireventid">
                 <h3>CorsairEventId</h3>
-                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairEventId</span></pre>
+                <pre data-language="c"><span class="k">enum</span><span class="w"> </span><span class="n">CorsairEventId</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains list of event identifiers.</p>
                 <p><strong>Items:</strong></p>
                 <ul>
@@ -680,7 +680,7 @@
             </section>
             <section id="corsairdevicetype">
                 <h3>CorsairDeviceType</h3>
-                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairDeviceType</span></pre>
+                <pre data-language="c"><span class="k">enum</span><span class="w"> </span><span class="n">CorsairDeviceType</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains list of available device types.</p>
                 <p><strong>Items:</strong></p>
                 <ul>
@@ -699,7 +699,7 @@
             </section>
             <section id="corsairphysicallayout">
                 <h3>CorsairPhysicalLayout</h3>
-                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairPhysicalLayout</span></pre>
+                <pre data-language="c"><span class="k">enum</span><span class="w"> </span><span class="n">CorsairPhysicalLayout</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains list of available physical layouts for keyboards.</p>
                 <p><strong>Items:</strong></p>
                 <ul>
@@ -710,7 +710,7 @@
             </section>
             <section id="corsairlogicallayout">
                 <h3>CorsairLogicalLayout</h3>
-                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairLogicalLayout</span></pre>
+                <pre data-language="c"><span class="k">enum</span><span class="w"> </span><span class="n">CorsairLogicalLayout</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains list of available logical layouts for keyboards.</p>
                 <p><strong>Items:</strong></p>
                 <ul>
@@ -720,7 +720,7 @@
             </section>
             <section id="corsairdevicecaps">
                 <h3>CorsairDeviceCaps</h3>
-                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairDeviceCaps</span></pre>
+                <pre data-language="c"><span class="k">enum</span><span class="w"> </span><span class="n">CorsairDeviceCaps</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains list of device capabilities. Current version of SDK only supports lighting and property lookup, but future versions may also support other capabilities.</p>
                 <p><strong>Items:</strong></p>
                 <ul>
@@ -731,7 +731,7 @@
             </section>
             <section id="corsairdevicepropertytype">
                 <h3>CorsairDevicePropertyType</h3>
-                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairDevicePropertyType</span></pre>
+                <pre data-language="c"><span class="k">enum</span><span class="w"> </span><span class="n">CorsairDevicePropertyType</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains list of properties types.</p>
                 <p><strong>Items:</strong></p>
                 <ul>
@@ -741,7 +741,7 @@
             </section>
             <section id="corsairdevicepropertyid">
                 <h3>CorsairDevicePropertyId</h3>
-                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairDevicePropertyId</span></pre>
+                <pre data-language="c"><span class="k">enum</span><span class="w"> </span><span class="n">CorsairDevicePropertyId</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains list of properties identifiers which can be read from device that supports <cite>CDC_PropertyLookup</cite> capability. Each identifier characterized by two values - id and data type. Data type is represented by high nibble and equals 1 for boolean or 2 for integer property values. E.g. <cite>CDPI_Headset_MicEnabled &amp; 0xF000 == CDPT_Boolean</cite>, <cite>CDPI_Headset_EqualizerPreset &amp; 0xF000 == CDPT_Int32</cite>.</p>
                 <p><strong>Items:</strong></p>
                 <ul>
@@ -753,7 +753,7 @@
             </section>
             <section id="corsairaccessmode">
                 <h3>CorsairAccessMode</h3>
-                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairAccessMode</span></pre>
+                <pre data-language="c"><span class="k">enum</span><span class="w"> </span><span class="n">CorsairAccessMode</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains list of available SDK access modes.</p>
                 <p><strong>Items:</strong></p>
                 <ul>
@@ -762,7 +762,7 @@
             </section>
             <section id="corsairerror">
                 <h3>CorsairError</h3>
-                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairError</span></pre>
+                <pre data-language="c"><span class="k">enum</span><span class="w"> </span><span class="n">CorsairError</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains shared list of all errors that could happen during calling of Corsair* functions.</p>
                 <p><strong>Items:</strong></p>
                 <ul>
@@ -776,7 +776,7 @@
             </section>
             <section id="corsairledcolor">
                 <h3>CorsairLedColor</h3>
-                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairLedColor</span></pre>
+                <pre data-language="c"><span class="k">struct</span> <span class="nc">CorsairLedColor</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains information about led and its color.</p>
                 <p><strong>Fields:</strong></p>
                 <ul>
@@ -788,7 +788,7 @@
             </section>
             <section id="corsairchanneldevicetype">
                 <h3>CorsairChannelDeviceType</h3>
-                <pre data-language="c"><span class="k">enum</span> <span class="n">CorsairChannelDeviceType</span></pre>
+                <pre data-language="c"><span class="k">enum</span><span class="w"> </span><span class="n">CorsairChannelDeviceType</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains list of the LED-devices which can be connected to the DIY-device or cooler.</p>
                 <p><strong>Items:</strong></p>
                 <ul>
@@ -798,7 +798,7 @@
             </section>
             <section id="corsairdeviceinfo">
                 <h3>CorsairDeviceInfo</h3>
-                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairDeviceInfo</span></pre>
+                <pre data-language="c"><span class="k">struct</span> <span class="nc">CorsairDeviceInfo</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains information about device.</p>
                 <p><strong>Fields:</strong></p>
                 <ul>
@@ -814,7 +814,7 @@
             </section>
             <section id="corsairchannelsinfo">
                 <h3>CorsairChannelsInfo</h3>
-                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairChannelsInfo</span></pre>
+                <pre data-language="c"><span class="k">struct</span> <span class="nc">CorsairChannelsInfo</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains information about channels of the DIY-devices or cooler.</p>
                 <p><strong>Fields:</strong></p>
                 <ul>
@@ -824,7 +824,7 @@
             </section>
             <section id="corsairchannelinfo">
                 <h3>CorsairChannelInfo</h3>
-                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairChannelInfo</span></pre>
+                <pre data-language="c"><span class="k">struct</span> <span class="nc">CorsairChannelInfo</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains information about separate channel of the DIY-device or cooler.</p>
                 <p><strong>Fields:</strong></p>
                 <ul>
@@ -835,7 +835,7 @@
             </section>
             <section id="corsairchanneldeviceinfo">
                 <h3>CorsairChannelDeviceInfo</h3>
-                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairChannelDeviceInfo</span></pre>
+                <pre data-language="c"><span class="k">struct</span> <span class="nc">CorsairChannelDeviceInfo</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains information about separate LED-device connected to the channel controlled by the DIY-device or cooler.</p>
                 <p><strong>Fields:</strong></p>
                 <ul>
@@ -845,7 +845,7 @@
             </section>
             <section id="corsairledpositions">
                 <h3>CorsairLedPositions</h3>
-                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairLedPositions</span></pre>
+                <pre data-language="c"><span class="k">struct</span> <span class="nc">CorsairLedPositions</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains number of leds and array with their positions.</p>
                 <p><strong>Fields:</strong></p>
                 <ul>
@@ -855,7 +855,7 @@
             </section>
             <section id="corsairledposition">
                 <h3>CorsairLedPosition</h3>
-                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairLedPosition</span></pre>
+                <pre data-language="c"><span class="k">struct</span> <span class="nc">CorsairLedPosition</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains led id and position of led rectangle. Most of the keys are rectangular. In case if key is not rectangular (like Enter in ISO/UK layout) it returns the smallest rectangle that fully contains the key.</p>
                 <p><strong>Fields:</strong></p>
                 <ul>
@@ -865,7 +865,7 @@
             </section>
             <section id="corsairevent">
                 <h3>CorsairEvent</h3>
-                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairEvent</span></pre>
+                <pre data-language="c"><span class="k">struct</span> <span class="nc">CorsairEvent</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains information about event id and event data.</p>
                 <p><strong>Fields:</strong></p>
                 <ul>
@@ -879,7 +879,7 @@
             </section>
             <section id="corsairdeviceconnectionstatuschangedevent">
                 <h3>CorsairDeviceConnectionStatusChangedEvent</h3>
-                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairDeviceConnectionStatusChangedEvent</span></pre>
+                <pre data-language="c"><span class="k">struct</span> <span class="nc">CorsairDeviceConnectionStatusChangedEvent</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains information about some device that is connected or disconnected. When user receives this event, it makes sense to reenumerate device list, because device indices may become invalid at this moment.</p>
                 <p><strong>Fields:</strong></p>
                 <ul>
@@ -889,7 +889,7 @@
             </section>
             <section id="corsairkeyevent">
                 <h3>CorsairKeyEvent</h3>
-                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairKeyEvent</span></pre>
+                <pre data-language="c"><span class="k">struct</span> <span class="nc">CorsairKeyEvent</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains information about device where G or M key was pressed/released and the key itself.</p>
                 <p><strong>Fields:</strong></p>
                 <ul>
@@ -900,7 +900,7 @@
             </section>
             <section id="corsairprotocoldetails">
                 <h3>CorsairProtocolDetails</h3>
-                <pre data-language="c"><span class="k">struct</span> <span class="n">CorsairProtocolDetails</span></pre>
+                <pre data-language="c"><span class="k">struct</span> <span class="nc">CorsairProtocolDetails</span><span class="w"></span></pre>
                 <p><strong>Description:</strong> contains information about SDK and CUE versions</p>
                 <p><strong>Fields:</strong></p>
                 <ul>
@@ -916,15 +916,15 @@
             <h2>Device coordinates</h2>
             <p>LED coordinates returned by <cite>CorsairGetLedPositions</cite> and <cite>CorsairGetLedPositionsByDeviceIndex</cite> functions are available on pictures below.</p>
             <p>K95 RGB</p>
-            <img width="100%" src="images/k95rgb.png" />
+            <img width="100%" src="images/k95rgb.png" alt="" />
             <p>K95 RGB PLATINUM</p>
-            <img width="100%" src="images/k95rgbplatinum.png" />
+            <img width="100%" src="images/k95rgbplatinum.png" alt="" />
             <p>K68</p>
-            <img width="100%" src="images/k68.png" />
+            <img width="100%" src="images/k68.png" alt="" />
             <p>K63</p>
-            <img width="100%" src="images/k63.png" />
+            <img width="100%" src="images/k63.png" alt="" />
             <p>MM800 RGB</p>
-            <img width="100%" src="images/mm800rgb.png" />
+            <img width="100%" src="images/mm800rgb.png" alt="" />
         </section>
         <section id="examples-of-how-to-use-sdk">
             <h2>Examples of how to use SDK</h2>
