@@ -10,7 +10,7 @@
         <h1>CUE SDK</h1>
         <p class="cover-page-subtitle">Overview and Reference</p>
         <hr />
-        <p class="cover-page-text">Protocol version 14</p>
+        <p class="cover-page-text">Protocol version 15</p>
         <aside id="table-of-contents" class="topic contents">
             <h1>Table of Contents</h1>
             <ul>
@@ -31,6 +31,8 @@
                         <li><a href="#leds-that-are-not-controlled-by-sdk">LEDs that are not controlled by SDK</a></li>
                         <li><a href="#memory-management">Memory management</a></li>
                         <li><a href="#win-l">Win+L</a></li>
+                        <li><a href="#rdp-limitations">RDP limitations</a></li>
+                        <li><a href="#access-rights">Access rights</a></li>
                     </ul>
                 </li>
                 <li><a href="#reference">Reference</a>
@@ -144,6 +146,7 @@
                         <ul>
                             <li>CGK65 RGB</li>
                             <li>K55 RGB</li>
+                            <li>K60 RGB PRO</li>
                             <li>K63</li>
                             <li>K65 LUX RGB</li>
                             <li>K65 RGB RAPIDFIRE</li>
@@ -263,6 +266,14 @@
                 <h3>Win+L</h3>
                 <p>CUE should preserve communication channels with SDK clients when user locks screen, so when user session is restored and set of connected devices is unchanged the client can continue using SDK as if session was never locked.</p>
                 <p>For all G/M keys which are in a pressed state at the time user locks screen CUE should notify client application that these keys have been released.</p>
+            </section>
+            <section id="rdp-limitations">
+                <h3>RDP limitations</h3>
+                <p>Both CUE and SDK are designed to work on a local computer and will not work if accessed remotely through Microsoft RDP.</p>
+            </section>
+            <section id="access-rights">
+                <h3>Access rights</h3>
+                <p>In order to be able to communicate with each other, CUE and SDK client must run with identical access rights: either with regular access or "As Administrator".</p>
             </section>
         </section>
         <section id="reference">
@@ -457,7 +468,7 @@
                 <p><strong>Description:</strong> registers a callback that will be called by SDK when some event happened. If client is already subscribed but calls this function again SDK should use only last callback registered for sending notifications.</p>
                 <p><strong>Input arguments:</strong></p>
                 <ul>
-                    <li><cite>void(*CorsairEventHandler)(void *context, const CorsairEvent *event)</cite> - callback that is called by SDK when key is pressed or released
+                    <li><cite>void(*CorsairEventHandler)(void *context, const CorsairEvent *event)</cite> - callback that is called by SDK when some event happened
                         <ul>
                             <li><cite>context</cite> contains value that was supplied by user in <cite>CorsairSubscribeForEvents</cite> call;</li>
                             <li><cite>CorsairEvent *event</cite> - information about event, user can distinguish between events by reading <cite>event-&gt;id</cite> field;</li>
@@ -792,8 +803,9 @@
                 <p><strong>Description:</strong> contains list of the LED-devices which can be connected to the DIY-device or cooler.</p>
                 <p><strong>Items:</strong></p>
                 <ul>
-                    <li><cite>CCDT_HD_Fan</cite>, <cite>CCDT_SP_Fan</cite>, <cite>CCDT_LL_Fan</cite>, <cite>CCDT_ML_Fan</cite>, <cite>CCDT_Strip</cite>, <cite>CCDT_DAP</cite>, <cite>CCDT_Pump</cite>, <cite>CCDT_QL_Fan</cite>, <cite>CCDT_WaterBlock</cite>, <cite>CCDT_SPPRO_Fan</cite> - valid values;</li>
-                    <li><cite>CCDT_Invalid</cite> - dummy value.</li>
+                    <li><cite>CCDT_HD_Fan</cite>, <cite>CCDT_SP_Fan</cite>, <cite>CCDT_LL_Fan</cite>, <cite>CCDT_ML_Fan</cite>, <cite>CCDT_Strip</cite>, <cite>CCDT_DAP</cite>, <cite>CCDT_Pump</cite>, <cite>CCDT_QL_Fan</cite>, <cite>CCDT_WaterBlock</cite>, <cite>CCDT_8LedSeriesFan</cite> - valid values;</li>
+                    <li><cite>CCDT_Invalid</cite> - dummy value;</li>
+                    <li><cite>CCDT_SPPRO_Fan</cite> - obsolete value.</li>
                 </ul>
             </section>
             <section id="corsairdeviceinfo">

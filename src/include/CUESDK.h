@@ -151,7 +151,8 @@ extern "C"
 		CCDT_Pump = 7,
 		CCDT_QL_Fan = 8,
 		CCDT_WaterBlock = 9,
-		CCDT_SPPRO_Fan = 10
+		CCDT_SPPRO_Fan = 10, // CCDT_SPPRO_Fan value is obsolete and will be removed in a future release
+		CCDT_8LedSeriesFan = 10
 	};
 
 	enum CorsairDevicePropertyType
