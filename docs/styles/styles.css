@@ -39,7 +39,7 @@ aside.topic {
   margin: 10px 0 10px 0;
 }
 
-aside > h1 {
+aside h1 {
   font-size: 120%;
   color: #444;
 }
@@ -58,34 +58,12 @@ aside.note {
 
 aside.note:before {
   content: "";
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='transparent' stroke='%23444'><circle cy='16' cx='16' stroke-width='2' r='12'/><path stroke-width='4' d='M16 7v4 M16 13v12'/></svg>") no-repeat;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='transparent' stroke='#444'><circle cy='16' cx='16' stroke-width='2' r='12'/><path stroke-width='4' d='M16 7v4 M16 13v12'/></svg>") no-repeat;
   display:block;
   width: 24px;
   height: 24px;
   margin: 0 0 0 -28px;
   position: absolute;
-}
-
-hr {
-  display: none;
-}
-
-section > h1 {
-  display: inline;
-  text-decoration: none;
-}
-
-.cover-page-subtitle {
-  display: inline;
-  font-family: "Garamond", "Georgia", serif;
-  font-weight: 700;
-  color: #217599;
-  text-decoration: none;
-  font-size: 240%;
-}
-
-.cover-page-text {
-  font-weight: bold;
 }
 
 pre {
@@ -96,6 +74,20 @@ pre {
   overflow-y: hidden;
   white-space: pre-wrap;
   word-wrap: break-word;
+}
+
+table {
+  border: 1px solid #999999;
+  width: 100%;
+}
+
+th {
+  font-weight: 500;
+  background-color: #bbbbbb;
+}
+
+td {
+  text-align: center;
 }
 
 /* pygment-css: github theme */

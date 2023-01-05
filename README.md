@@ -1,8 +1,8 @@
-# The official CUE SDK for C/C++
+# The official iCUE SDK for C/C++
 
-This repository is for CUE SDK releases and documentation.
+This repository is for iCUE SDK releases and documentation.
 
-Developers can use the CUE SDK to access CORSAIR devices, enabling them to control device LEDs and create custom lighting experiences.
+Developers can use the iCUE SDK to access CORSAIR devices, enabling them to control device LEDs and create custom lighting experiences.
 
 ## Want to partner with us?
 
@@ -12,6 +12,5 @@ To learn more, please contact us on the iCUE Dev page: https://www.corsair.com/i
 
 ## Resources
 
-- Download the latest CUE SDK release: https://github.com/CorsairOfficial/cue-sdk/releases
+- Download the latest iCUE SDK release: https://github.com/CorsairOfficial/cue-sdk/releases
 - Read the full API reference: https://corsairofficial.github.io/cue-sdk
-- Browse some examples: https://github.com/corsairofficial/cue-sdk/tree/master/src/examples
