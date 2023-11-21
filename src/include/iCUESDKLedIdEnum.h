@@ -16,7 +16,8 @@ enum CorsairLedGroup // contains a list of led groups. Led group is used as a pa
 	CLG_DIY_Channel1 = 11,   // for leds on the first channel of DIY devices and coolers
 	CLG_DIY_Channel2 = 12,   // for leds on the second channel of DIY devices and coolers
 	CLG_DIY_Channel3 = 13,   // for leds on the third channel of DIY devices and coolers
-	CLG_Touchbar = 14        // for touchbar leds
+	CLG_Touchbar = 14,       // for touchbar leds
+	CLG_GameController = 15  // for game controller leds
 };
 
 enum CorsairLedId_Keyboard // contains a list of keyboard leds that belong to CLG_Keyboard group

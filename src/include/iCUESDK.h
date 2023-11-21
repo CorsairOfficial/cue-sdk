@@ -57,6 +57,7 @@ enum CorsairDeviceType // contains list of available device types
 	CDT_Motherboard = 0x0200,       // for motherboards
 	CDT_GraphicsCard = 0x0400,      // for graphics cards
 	CDT_Touchbar = 0x0800,          // for touchbars
+	CDT_GameController = 0x1000,    // for game controllers
 	CDT_All = 0xFFFFFFFF            // for all devices
 };
 
@@ -176,7 +177,8 @@ enum CorsairChannelDeviceType // contains list of the LED-devices which can be c
 	CCDT_DAP = 8,
 	CCDT_Pump = 9,
 	CCDT_DRAM = 10,
-	CCDT_WaterBlock = 11
+	CCDT_WaterBlock = 11,
+	CCDT_QX_Fan = 12,
 };
 
 enum CorsairAccessLevel // contains list of available SDK access levels
